@@ -6,8 +6,9 @@ import { usePost } from "../../hooks/usePost";
 import { actions } from "../../actions";
 import useAxios from "../../hooks/useAxios";
 import useIntersectionObserver from "../../hooks/useIntersectionObserver";
-
-<title>React Blogify | Learn with Sumit</title>;
+import Test from "../common/Test";
+import useDynamicTitle from "../../hooks/useDynamicTitle";
+import { useUser } from "../../hooks/useUser";
 
 export default function Home() {
   const [ref, isVisible] = useIntersectionObserver({
@@ -17,6 +18,7 @@ export default function Home() {
   });
   const [page, setPage] = useState(1);
   const { state, dispatch } = usePost();
+  const { user } = useUser();
   const { api } = useAxios();
   // console.log(state);
   // console.log(state);
@@ -37,6 +39,7 @@ export default function Home() {
     }
   }, [isVisible, state.hasMore]);
 
+  useDynamicTitle(state?.loading ? "loading" : undefined);
   // if (state?.loading) {
   //   return <div>loading....</div>;
   // }
@@ -59,8 +62,9 @@ export default function Home() {
         {/* <!-- Sidebar --> */}
         <div className="md:col-span-2 h-full w-full space-y-5">
           <PopularBlogs />
+          {user && <FavouriteBlogs />}
 
-          <FavouriteBlogs />
+          <Test />
         </div>
       </div>
     </div>

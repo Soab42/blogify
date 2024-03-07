@@ -5,6 +5,10 @@ export function getName(author) {
 export function getNameURL(author) {
   return (
     "/profile/" +
-    (author?.firstName.toLowerCase() + "-" + author?.lastName.toLowerCase())
+    (author?.firstName.toLowerCase() +
+      "-" +
+      author?.lastName.toLowerCase() +
+      "-" +
+      author?.id)
   );
 }

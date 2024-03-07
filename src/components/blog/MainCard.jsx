@@ -4,9 +4,11 @@ import CardAuthor from "./CardAuthor";
 import { useInView } from "framer-motion";
 import { useBlogImage } from "../../hooks/useBlogImage";
 import { useRef } from "react";
-import { generateURL } from "../../utils.js/generateURL";
+import { generatePostURL } from "../../utils.js/generateURL";
+import { useUser } from "../../hooks/useUser";
 export default function MainCard({ data = {} }) {
   const { thumbnailLink } = useBlogImage(data.thumbnail);
+  const { isUser } = useUser(data.author);
   const ref = useRef(null);
   const isInView = useInView(ref, {
     once: true,
@@ -14,7 +16,7 @@ export default function MainCard({ data = {} }) {
   });
   return (
     <div
-      className="blog-card"
+      className="blog-card  "
       ref={ref}
       style={{
         background: isInView ? "" : "white",
@@ -25,9 +27,11 @@ export default function MainCard({ data = {} }) {
     >
       <img className="blog-thumb" src={thumbnailLink} alt="" />
       <div className="mt-2 relative">
-        <Link to={generateURL("/blog", data.title, data.id)}>
+        <Link to={generatePostURL("/blog", data.title, data.id)}>
           <h3 className="text-slate-300 text-xl lg:text-2xl">{data.title}</h3>
-          <p className="mb-6 text-base text-slate-500 mt-1">{data.content}</p>
+          <p className="mb-6 text-base text-slate-500 mt-1 line-clamp-2">
+            {data.content}
+          </p>
         </Link>
 
         {/* <!-- Meta Informations --> */}
@@ -38,7 +42,8 @@ export default function MainCard({ data = {} }) {
         />
 
         {/* <!-- action dot --> */}
-        <ActionDot />
+        {isUser && <ActionDot />}
+
         {/* <!-- action dot ends --> */}
       </div>
     </div>

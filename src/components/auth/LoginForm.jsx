@@ -27,7 +27,7 @@ export default function LoginForm() {
         if (response.status === 200) {
           const { token, user } = response.data;
           if (token) {
-            const authToken = token.token;
+            const authToken = token.accessToken;
             const refreshToken = token.refreshToken;
             console.log(`Login time auth token: ${authToken}`);
             setAuth({ user, authToken, refreshToken });

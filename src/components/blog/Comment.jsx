@@ -1,5 +1,3 @@
-import React from "react";
-import ProfileImage from "../profile/ProfileImage";
 import AuthorImage from "../common/AuthorImage";
 import { Link } from "react-router-dom";
 import { getName, getNameURL } from "../../utils.js/getName";

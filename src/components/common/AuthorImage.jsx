@@ -7,7 +7,11 @@ export default function AuthorImage({ author = {} }) {
   return (
     <div className="avater-img bg-orange-600 text-white overflow-hidden">
       {author?.avatar ? (
-        <img src={avatarURL} alt={author?.firstName?.slice(-1)} />
+        <img
+          src={avatarURL}
+          alt={author?.firstName?.slice(-1)}
+          className="w-full"
+        />
       ) : (
         <span>{author?.firstName?.slice(-1)}</span>
       )}

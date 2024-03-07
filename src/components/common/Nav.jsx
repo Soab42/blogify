@@ -7,8 +7,12 @@ import { Link } from "react-router-dom";
 import AuthorImage from "./AuthorImage";
 import { useAuth } from "../../hooks/useAuth";
 import { getName, getNameURL } from "../../utils.js/getName";
+import { useUser } from "../../hooks/useUser";
+import ProfileNavigation from "../profile/ProfileNavigation";
+import { useActive } from "../../hooks/useActive";
 export default function Nav() {
-  const { auth } = useAuth();
+  const { user } = useUser();
+  const [active, handleActive] = useActive();
   // console.log(auth);
   return (
     <header className=" w-full flex justify-center sticky top-0 z-30 bg-inherit">
@@ -27,12 +31,14 @@ export default function Nav() {
         <div>
           <ul className="flex items-center space-x-5">
             <li>
-              <Link
-                to="/write"
-                className="bg-indigo-600 text-white px-6 py-2 md:py-3 rounded-md hover:bg-indigo-700 transition-all duration-200"
-              >
-                Write
-              </Link>
+              {user && (
+                <Link
+                  to="/write"
+                  className="bg-indigo-600 text-white px-6 py-2 md:py-3 rounded-md hover:bg-indigo-700 transition-all duration-200"
+                >
+                  Write
+                </Link>
+              )}
             </li>
             <li>
               <Link
@@ -43,11 +49,19 @@ export default function Nav() {
                 <span>Search</span>
               </Link>
             </li>
-            <li className="text-white flex justify-center items-center">
-              <img src={NightLogo} alt="night" className=" w-6 m-2" />
-              <img src={DayLogo} alt="day" className=" w-6 m-2" />
+            <li
+              className="text-white flex justify-center items-center cursor-pointer"
+              onClick={handleActive}
+            >
+              {active ? (
+                <img src={NightLogo} alt="night" className=" w-6 m-2" />
+              ) : (
+                <img src={DayLogo} alt="day" className=" w-6 m-2" />
+              )}
             </li>
-            {!auth.user ? (
+
+            {/*  */}
+            {!user ? (
               <li>
                 <Link
                   to="/login"
@@ -58,11 +72,12 @@ export default function Nav() {
               </li>
             ) : (
               <li className="flex items-center">
-                <AuthorImage author={auth.user} />
+                {/* <AuthorImage author={user} /> */}
                 {/* <!-- Logged-in user's name --> */}
-                <Link to={getNameURL(auth.user)}>
-                  <span className="text-white ml-2">{getName(auth.user)}</span>
-                </Link>
+                {/* <Link to={getNameURL(user)}>
+                  <span className="text-white ml-2">{getName(user)}</span>
+                </Link> */}
+                <ProfileNavigation user={user} />
                 {/* <!-- Profile Image --> */}
               </li>
             )}

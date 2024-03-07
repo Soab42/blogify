@@ -6,7 +6,7 @@ import { useAuth } from "./useAuth";
 
 const useAxios = () => {
   const { auth, setAuth } = useAuth();
-
+  // console.log("auth", auth);
   useEffect(() => {
     // Add a request interceptor
     const requestIntercept = api.interceptors.request.use(
@@ -57,7 +57,7 @@ const useAxios = () => {
       api.interceptors.request.eject(requestIntercept);
       api.interceptors.response.eject(responseIntercept);
     };
-  }, [auth.authToken, auth, setAuth]);
+  }, [auth?.authToken, auth, setAuth]);
 
   return { api };
 };

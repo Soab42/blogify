@@ -1,12 +1,11 @@
-import React from "react";
 import AuthorImage from "../common/AuthorImage";
-import { useAuth } from "../../hooks/useAuth";
+import { useUser } from "../../hooks/useUser";
 
 export default function CommentForm() {
-  const { auth } = useAuth();
+  const { user } = useUser();
   return (
     <div className="flex items -center space-x-4">
-      <AuthorImage author={auth.user} />
+      <AuthorImage author={user} />
       <div className="w-full">
         <textarea
           className="w-full bg-[#030317] border border-slate-500 text-slate-300 p-4 rounded-md focus:outline-none"

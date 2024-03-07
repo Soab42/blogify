@@ -8,7 +8,7 @@ export default function Comments({ comments }) {
     <section id="comments">
       <div className="mx-auto w-full md:w-10/12 container">
         <h2 className="text-3xl font-bold my-8">
-          Comments ({comments?.length})
+          Comments ({comments?.length || 0})
         </h2>
 
         <CommentForm />

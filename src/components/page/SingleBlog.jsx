@@ -5,6 +5,7 @@ import FloatingAction from "../blog/FloatingAction";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import useDynamicTitle from "../../hooks/useDynamicTitle";
 <title>Integer Maecenas Eget Viverra | Learn with Sumit</title>;
 
 const retrievePost = async ({ queryKey }) => {
@@ -16,6 +17,7 @@ const retrievePost = async ({ queryKey }) => {
 export default function SingleBlog() {
   const params = useParams();
   const id = params?.title?.split("-").pop();
+
   const {
     data: post,
     error,
@@ -24,7 +26,9 @@ export default function SingleBlog() {
     queryKey: ["blogs", id],
     queryFn: retrievePost,
   });
-  console.log(id);
+
+  useDynamicTitle(isLoading ? "Loading" : "Blog");
+
   return (
     <main>
       {/* <!-- Begin Blogs --> */}

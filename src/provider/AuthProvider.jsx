@@ -9,13 +9,13 @@ const AuthProvider = ({ children }) => {
   const [storedValue, setStoredValue] = useSessionCookie("auth");
 
   useEffect(() => {
-    if (storedValue.user) {
+    if (storedValue?.user) {
       setAuth(storedValue);
     }
   }, []);
 
   useEffect(() => {
-    if (auth.user) {
+    if (auth?.user) {
       setStoredValue(auth);
     }
   }, [auth, setStoredValue]);

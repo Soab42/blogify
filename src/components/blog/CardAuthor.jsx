@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import AuthorImage from "../common/AuthorImage";
+import { getName, getNameURL } from "../../utils.js/getName";
 
 export default function CardAuthor({ author, likes, createdAt }) {
   return (
@@ -10,7 +11,7 @@ export default function CardAuthor({ author, likes, createdAt }) {
 
         <div>
           <h5 className="text-slate-500 text-sm">
-            <Link to="/profile/saad">Saad Hasan</Link>
+            <Link to={getNameURL(author)}>{getName(author)}</Link>
           </h5>
           <div className="flex items-center text-xs text-slate-700">
             <span>{createdAt}</span>

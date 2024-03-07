@@ -1,12 +1,21 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { generatePostURL } from "../../utils.js/generateURL";
 
-export default function FavouriteCard() {
+export default function FavouriteCard({ blog }) {
+  const tags = blog.tags.split(",");
   return (
     <li>
-      <h3 className="text-slate-400 font-medium hover:text-slate-300 transition-all cursor-pointer">
-        How to Auto Deploy a Next.js App on Ubuntu from GitHub
-      </h3>
-      <p className="text-slate-600 text-sm">#tailwindcss, #server, #ubuntu</p>
+      <Link to={generatePostURL("/blog", blog?.title, blog?.id)}>
+        <h3 className="text-slate-400 font-medium hover:text-slate-300 transition-all cursor-pointer">
+          {blog?.title}
+        </h3>
+      </Link>
+      <p className="text-slate-600 text-sm space-x-2">
+        {tags?.map((tag) => (
+          <span key={tag}>#{tag}</span>
+        ))}
+      </p>
     </li>
   );
 }
