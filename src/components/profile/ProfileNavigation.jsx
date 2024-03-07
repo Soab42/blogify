@@ -2,20 +2,23 @@
 import LogoutSvg from "../../assets/icons/logout2.svg";
 // import UserSvg from "../../assets/icons/user.svg";
 import UserSvg from "../../assets/icons/user-heart.svg";
-import { useActive } from "../../hooks/useActive";
+import useActive from "../../hooks/useActive";
 import AuthorImage from "../common/AuthorImage";
 import { getName, getNameURL } from "../../utils.js/getName";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import useSessionCookie from "../../hooks/useSessionCookie";
+import { useProfile } from "../../hooks/useProfile";
+import { actions } from "../../actions";
 export default function ProfileNavigation({ user }) {
   const [active, handleActive] = useActive();
-  const [authCookie, setAuthCookie] = useSessionCookie("auth");
+  const { removeCookie } = useSessionCookie("auth");
   const { setAuth } = useAuth();
-  // console.log(storedValue);
+  const { dispatch } = useProfile();
   const handleSignOut = () => {
-    setAuthCookie(null);
+    removeCookie("auth");
     setAuth(null);
+    dispatch({ type: actions.profile.DATA_FETCHED, data: null });
   };
   return (
     <div className="w-full relative">

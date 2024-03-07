@@ -2,7 +2,6 @@ import { actions } from "../actions";
 
 const initialState = {
   user: null,
-  posts: [],
   loading: false,
   error: null,
 };
@@ -20,8 +19,7 @@ const profileReducer = (state, action) => {
       return {
         ...state,
         loading: false,
-        user: action.data.user,
-        posts: action.data.posts,
+        user: action.data,
       };
     }
 
@@ -51,7 +49,31 @@ const profileReducer = (state, action) => {
         },
       };
     }
+    case actions.profile.FAV_UPDATED: {
+      const userFavData = state.user.favourites;
 
+      if (action.data.isFavourite) {
+        userFavData.push({
+          id: action.data.id,
+          tags: action.data.tags,
+          title: action.data.title,
+        });
+      } else {
+        const index = state.user.favourites.findIndex(
+          (item) => item.id === action.data.id
+        );
+        userFavData.splice(index, 1);
+      }
+
+      return {
+        ...state,
+        loading: false,
+        user: {
+          ...state.user,
+          favourites: userFavData,
+        },
+      };
+    }
     default: {
       return state;
     }

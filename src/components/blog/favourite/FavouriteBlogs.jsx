@@ -1,6 +1,6 @@
 import FavouriteCard from "./FavouriteCard";
 import { useQuery } from "@tanstack/react-query";
-import useAxios from "../../hooks/useAxios";
+import useAxios from "../../../hooks/useAxios";
 
 export default function FavouriteBlogs() {
   const { api } = useAxios();

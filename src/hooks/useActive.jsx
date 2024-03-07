@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export const useActive = () => {
+const useActive = () => {
   const [active, setActive] = useState(false);
   const handleActive = (value) => {
     if (typeof value === "boolean") {
@@ -12,3 +12,5 @@ export const useActive = () => {
 
   return [active, handleActive];
 };
+
+export default useActive;

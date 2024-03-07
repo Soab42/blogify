@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import useAxios from "../../hooks/useAxios";
-import { usePost } from "../../hooks/usePost";
+import { actions } from "../../../actions";
+import useAxios from "../../../hooks/useAxios";
+import { usePost } from "../../../hooks/usePost";
 import PopularCard from "./PopularCard";
-import { actions } from "../../actions";
 
 export default function PopularBlogs() {
   const { state, dispatch } = usePost();

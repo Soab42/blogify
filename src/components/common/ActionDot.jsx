@@ -1,7 +1,7 @@
 import ThreeDotSvg from "../../assets/icons/3dots.svg";
 import EditSvg from "../../assets/icons/edit.svg";
 import DeleteSvg from "../../assets/icons/delete.svg";
-import { useActive } from "../../hooks/useActive";
+import useActive from "../../hooks/useActive";
 export default function ActionDot() {
   const [active, handleActive] = useActive();
   return (

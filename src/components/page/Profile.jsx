@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from "react";
 import MainCard from "../blog/MainCard";
 import ProfileInfo from "../profile/ProfileInfo";
 import { useParams } from "react-router-dom";
 
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useUser } from "../../hooks/useUser";
+import { useProfile } from "../../hooks/useProfile";
 import { getName } from "../../utils.js/getName";
 import useDynamicTitle from "../../hooks/useDynamicTitle";
 
-<title>Profile | Facehook</title>;
 const retrieveProfile = async ({ queryKey }) => {
   const response = await axios.get(
     `http://localhost:3000/${queryKey[0]}/${queryKey[1]}`
@@ -28,7 +26,7 @@ export default function Profile() {
     queryKey: ["profile", id],
     queryFn: retrieveProfile,
   });
-  const { isUser } = useUser(profile);
+  const { isUser } = useProfile(profile);
   useDynamicTitle(isLoading ? "loading" : "Profile");
 
   return (

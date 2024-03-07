@@ -1,25 +1,6 @@
-import { useState, useEffect } from "react";
-
-function useSessionCookie(key, initialValue = null) {
+function useSessionCookie() {
   // Get the initial value from session cookie if available, otherwise use initialValue
-  console.log(key);
-  const [storedValue, setStoredValue] = useState(null);
-  console.log(storedValue);
-  // Update session cookie whenever the storedValue changes
-  useEffect(() => {
-    const cookieValue = getCookie(key);
-    // return cookieValue !== "" ? JSON.parse(cookieValue) : initialValue;
-    try {
-      if (storedValue === null) {
-        console.log("cockie is reset");
-        removeCookie(key);
-      } else {
-        setCookie(key, JSON.stringify(storedValue));
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }, [key, storedValue]);
+
   // Helper function to get cookie value
   function getCookie(name) {
     const value = `; ${document.cookie}`;
@@ -37,7 +18,7 @@ function useSessionCookie(key, initialValue = null) {
   function removeCookie(name) {
     document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
   }
-  return [storedValue, setStoredValue];
+  return { getCookie, setCookie, removeCookie };
 }
 
 export default useSessionCookie;

@@ -1,10 +1,9 @@
 import EditIcon from "../../assets/icons/edit.svg";
 import { useAvatar } from "../../hooks/useAvatar";
-import { useUser } from "../../hooks/useUser";
-import AuthorImage from "../common/AuthorImage";
+import { useProfile } from "../../hooks/useProfile";
 
 export default function ProfileImage({ author }) {
-  const { isUser } = useUser(author);
+  const { isUser } = useProfile(author);
   return (
     <div className="relative mb-8 max-h-[180px] max-w-[180px] h-[120px] w-[120px] rounded-full lg:mb-11 lg:max-h-[218px] lg:max-w-[218px]">
       <div className="w-full h-full bg-orange-600 text-white grid place-items-center text-5xl rounded-full">
@@ -20,7 +19,7 @@ export default function ProfileImage({ author }) {
   );
 }
 
-function AuthorProfileImage({ author }) {
+function AuthorProfileImage({ author = {} }) {
   const { avatarURL } = useAvatar(author);
   // console.log(author);
   return (

@@ -1,19 +1,43 @@
-import React from "react";
+import { useEffect } from "react";
 import LwsLogo from "../../assets/logo.svg";
 import NightLogo from "../../assets/night.svg";
 import DayLogo from "../../assets/day.svg";
 import SearchIcon from "../../assets/icons/search.svg";
 import { Link } from "react-router-dom";
-import AuthorImage from "./AuthorImage";
 import { useAuth } from "../../hooks/useAuth";
-import { getName, getNameURL } from "../../utils.js/getName";
-import { useUser } from "../../hooks/useUser";
 import ProfileNavigation from "../profile/ProfileNavigation";
-import { useActive } from "../../hooks/useActive";
+import useActive from "../../hooks/useActive";
+import { useProfile } from "../../hooks/useProfile";
+import useAxios from "../../hooks/useAxios";
+import { actions } from "../../actions";
 export default function Nav() {
-  const { user } = useUser();
+  const { auth } = useAuth();
   const [active, handleActive] = useActive();
-  // console.log(auth);
+  const { dispatch } = useProfile();
+  const { api } = useAxios();
+
+  useEffect(() => {
+    dispatch({ type: actions.profile.DATA_FETCHING });
+    const fetchProfile = async () => {
+      try {
+        const response = await api.get(`/profile/${auth?.user?.id}`);
+        if (response.status === 200) {
+          dispatch({
+            type: actions.profile.DATA_FETCHED,
+            data: response.data,
+          });
+        }
+      } catch (error) {
+        console.error(error);
+        dispatch({
+          type: actions.profile.DATA_FETCH_ERROR,
+          error: error.message,
+        });
+      }
+    };
+    auth?.user?.id && fetchProfile();
+  }, [auth?.user?.id]);
+
   return (
     <header className=" w-full flex justify-center sticky top-0 z-30 bg-inherit">
       <nav className="container">
@@ -24,14 +48,10 @@ export default function Nav() {
           </Link>
         </div>
 
-        {/* <!-- Actions - Login, Write, Home, Search --> */}
-        {/* <!-- Notes for Developers --> */}
-        {/* <!-- For Logged in User - Write, Profile, Logout Menu --> */}
-        {/* <!-- For Not Logged in User - Login Menu --> */}
         <div>
           <ul className="flex items-center space-x-5">
             <li>
-              {user && (
+              {auth?.user && (
                 <Link
                   to="/write"
                   className="bg-indigo-600 text-white px-6 py-2 md:py-3 rounded-md hover:bg-indigo-700 transition-all duration-200"
@@ -61,7 +81,7 @@ export default function Nav() {
             </li>
 
             {/*  */}
-            {!user ? (
+            {!auth?.user ? (
               <li>
                 <Link
                   to="/login"
@@ -72,13 +92,7 @@ export default function Nav() {
               </li>
             ) : (
               <li className="flex items-center">
-                {/* <AuthorImage author={user} /> */}
-                {/* <!-- Logged-in user's name --> */}
-                {/* <Link to={getNameURL(user)}>
-                  <span className="text-white ml-2">{getName(user)}</span>
-                </Link> */}
-                <ProfileNavigation user={user} />
-                {/* <!-- Profile Image --> */}
+                <ProfileNavigation user={auth?.user} />
               </li>
             )}
           </ul>

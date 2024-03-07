@@ -1,25 +1,26 @@
 import { useEffect, useState } from "react";
-
 import { AuthContext } from "../context";
 import useSessionCookie from "../hooks/useSessionCookie";
-// import  from "../hooks/useSessionCookie";
 
 const AuthProvider = ({ children }) => {
-  const [auth, setAuth] = useState({});
-  const [storedValue, setStoredValue] = useSessionCookie("auth");
+  // Retrieve functions for managing session cookies
+  const { getCookie, setCookie, removeCookie } = useSessionCookie();
+  // removeCookie("auth");
+  // Retrieve initial authentication data from the session cookie
+  const initialAuth = getCookie("auth");
+
+  // Initialize state for authentication data
+  const [auth, setAuth] = useState(initialAuth ? JSON.parse(initialAuth) : {});
 
   useEffect(() => {
-    if (storedValue?.user) {
-      setAuth(storedValue);
+    if (auth) {
+      setCookie("auth", JSON.stringify(auth));
+    } else {
+      removeCookie("auth");
     }
-  }, []);
+  }, [auth, setCookie, removeCookie]);
 
-  useEffect(() => {
-    if (auth?.user) {
-      setStoredValue(auth);
-    }
-  }, [auth, setStoredValue]);
-
+  // Provide authentication context to the entire component tree
   return (
     <AuthContext.Provider value={{ auth, setAuth }}>
       {children}

@@ -1,11 +1,11 @@
-import React from "react";
-import BlogDetails from "../blog/BlogDetails";
-import Comments from "../blog/Comments";
-import FloatingAction from "../blog/FloatingAction";
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 import useDynamicTitle from "../../hooks/useDynamicTitle";
+import BlogDetails from "../blog/BlogDetails";
+import FloatingAction from "../blog/actionButtons/FloatingAction";
+import Comments from "../blog/comments/Comments";
+
 <title>Integer Maecenas Eget Viverra | Learn with Sumit</title>;
 
 const retrievePost = async ({ queryKey }) => {
@@ -30,13 +30,13 @@ export default function SingleBlog() {
   useDynamicTitle(isLoading ? "Loading" : "Blog");
 
   return (
-    <main>
+    <main className="mb-5">
       {/* <!-- Begin Blogs --> */}
       <BlogDetails blog={post} />
       {/* <!-- End Blogs --> */}
 
       {/* <!-- Begin Comments --> */}
-      <Comments comments={post?.comments} />
+      <Comments comments={post?.comments} postId={post?.id} />
       <FloatingAction post={post} />
     </main>
   );

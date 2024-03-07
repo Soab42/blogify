@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { getName, getNameURL } from "../../utils.js/getName";
-import { generatePostURL } from "../../utils.js/generateURL";
+import { generatePostURL } from "../../../utils.js/generateURL";
+import { getName, getNameURL } from "../../../utils.js/getName";
 
 export default function PopularCard({ data = {} }) {
   return (

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { generatePostURL } from "../../utils.js/generateURL";
+import { generatePostURL } from "../../../utils.js/generateURL";
 
 export default function FavouriteCard({ blog }) {
   const tags = blog.tags.split(",");

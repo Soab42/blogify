@@ -1,4 +1,3 @@
-import React, { useLayoutEffect } from "react";
 import FormInput from "../common/FormInput";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -6,6 +5,7 @@ import { motion } from "framer-motion";
 import { validateEmail } from "../../utils.js/validateEmail";
 import { api } from "../../api";
 import { useAuth } from "../../hooks/useAuth";
+
 export default function LoginForm() {
   const { setAuth } = useAuth();
   const navigate = useNavigate();
@@ -15,6 +15,7 @@ export default function LoginForm() {
     formState: { errors },
     setError,
   } = useForm();
+
   const onSubmit = async (data) => {
     // console.log("data", data);
     if (!validateEmail(data?.email)) {

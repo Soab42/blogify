@@ -1,8 +1,8 @@
 import EditIcon from "../../assets/icons/edit.svg";
-import { useUser } from "../../hooks/useUser";
+import { useProfile } from "../../hooks/useProfile";
 
 export default function Bio({ info }) {
-  const { isUser } = useUser(info);
+  const { isUser } = useProfile(info);
 
   return (
     <div className="mt-4 flex items-start gap-2 lg:mt-6">

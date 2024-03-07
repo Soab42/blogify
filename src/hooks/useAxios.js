@@ -28,7 +28,8 @@ const useAxios = () => {
 
         // If the error status is 401 and there is no originalRequest._retry flag,
         // it means the token has expired and we need to refresh it
-        if (error.response.status === 401 && !originalRequest._retry) {
+
+        if (error.response.status === 403 && !originalRequest._retry) {
           originalRequest._retry = true;
 
           try {
@@ -37,13 +38,13 @@ const useAxios = () => {
               `${import.meta.env.VITE_SERVER_BASE_URL}/auth/refresh-token`,
               { refreshToken }
             );
-            const { token } = response.data;
+            const { accessToken } = response.data;
 
-            console.log(`New Token: ${token}`);
-            setAuth({ ...auth, authToken: token });
+            console.log(`New Token: ${accessToken}`);
+            setAuth({ ...auth, authToken: accessToken });
 
             // Retry the original request with the new token
-            originalRequest.headers.Authorization = `Bearer ${token}`;
+            originalRequest.headers.Authorization = `Bearer ${accessToken}`;
             return axios(originalRequest);
           } catch (error) {
             throw error;

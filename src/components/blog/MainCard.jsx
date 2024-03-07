@@ -5,10 +5,10 @@ import { useInView } from "framer-motion";
 import { useBlogImage } from "../../hooks/useBlogImage";
 import { useRef } from "react";
 import { generatePostURL } from "../../utils.js/generateURL";
-import { useUser } from "../../hooks/useUser";
+import { useProfile } from "../../hooks/useProfile";
 export default function MainCard({ data = {} }) {
   const { thumbnailLink } = useBlogImage(data.thumbnail);
-  const { isUser } = useUser(data.author);
+  const { isUser } = useProfile(data.author);
   const ref = useRef(null);
   const isInView = useInView(ref, {
     once: true,
