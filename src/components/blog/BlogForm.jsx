@@ -1,15 +1,33 @@
-import React from "react";
-import { useForm } from "react-hook-form";
 import FormInput from "../common/FormInput";
 
-export default function BlogForm({ handleSubmit, errors = {}, register }) {
+export default function BlogForm({
+  handleSubmit,
+  errors = {},
+  register,
+  image,
+}) {
   return (
     <form onSubmit={handleSubmit()} className="createBlog">
       <div className="grid place-items-center bg-slate-600/20 h-[150px] rounded-md my-4">
         <label
           htmlFor="file-upload"
-          className="flex items-center gap-4 hover:scale-110 transition-all cursor-pointer"
+          className="flex items-center justify-center gap-4 transition-all cursor-pointer w-full"
+          style={{
+            position: "relative",
+            overflow: "hidden",
+            width: "100%",
+            height: "100%",
+          }}
         >
+          {image && (
+            <img
+              className="object-cover w-full h-full absolute top-0 left-0 opacity-20 rounded-lg"
+              src={image}
+              alt="image"
+              style={{ objectFit: "cover" }}
+            />
+          )}
+
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -31,11 +49,11 @@ export default function BlogForm({ handleSubmit, errors = {}, register }) {
           id="file-upload"
           type="file"
           className="hidden"
-          {...register("img", { required: "img is required" })}
+          {...register("thumbnail", { required: "thumbnail is required" })}
         />
-        {errors.img && (
+        {errors.thumbnail && (
           <div className="px-2 text-rose-400 text-sm">
-            * {errors.img.message}
+            * {errors.thumbnail.message}
           </div>
         )}
       </div>
@@ -71,7 +89,7 @@ export default function BlogForm({ handleSubmit, errors = {}, register }) {
             id="content"
             name="content"
             placeholder="Write your blog content"
-            rows="8"
+            rows="10"
           ></textarea>
         </FormInput>
       </div>

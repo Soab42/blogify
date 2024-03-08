@@ -9,7 +9,8 @@ import MainCard from "../blog/MainCard";
 import FavouriteBlogs from "../blog/favourite/FavouriteBlogs";
 import PopularBlogs from "../blog/popular/PopularBlogs";
 import Test from "../common/Test";
-
+import { motion } from "framer-motion";
+import { pageVariants } from "../animated/variants";
 export default function Home() {
   const [ref, isVisible] = useIntersectionObserver({
     root: null,
@@ -41,7 +42,13 @@ export default function Home() {
   useDynamicTitle(state?.loading ? "loading" : undefined);
 
   return (
-    <div className="container">
+    <motion.div
+      className="container"
+      variants={pageVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+    >
       <div className="grid grid-cols-1 md:grid-cols-7 gap-4">
         <div className="space-y-3 md:col-span-5">
           {state?.posts?.map((post) => (
@@ -57,6 +64,6 @@ export default function Home() {
           <Test />
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

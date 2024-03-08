@@ -6,16 +6,22 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export default function CommentForm({ postId }) {
   const [content, setContent] = useState("");
+  const [error, setError] = useState();
   const { user } = useProfile();
   const { api } = useAxios();
   const queryClient = useQueryClient();
 
   const handleComment = async () => {
     try {
-      await mutation.mutate();
-      setContent("");
+      if (content) {
+        await mutation.mutate();
+        setContent("");
+      } else {
+        throw new Error("Comment content is required");
+      }
     } catch (error) {
       console.log("error", error.message);
+      setError(error.message);
     }
   };
 
@@ -35,14 +41,19 @@ export default function CommentForm({ postId }) {
       <div className="w-full">
         <textarea
           className={`w-full bg-[#030317] border border-slate-500 text-slate-300 p-4 rounded-md focus:outline-none ${
-            mutation?.isError ? "ring-1 ring-red-500" : ""
+            error ? "ring-1 ring-red-500" : ""
           }`}
           placeholder="Write a comment"
           value={content}
-          onChange={(e) => setContent(e.target.value)}
+          onChange={(e) => {
+            setError("");
+            setContent(e.target.value);
+          }}
         />
-        {mutation?.isError && (
-          <p className="bg-red-900/20 p-2">Comment content is required</p>
+        {error && (
+          <p className="text-red-300 pl-2 text-sm absolute backdrop-blur-sm ">
+            {error} !
+          </p>
         )}
         <div className="flex justify-end mt-4">
           <button

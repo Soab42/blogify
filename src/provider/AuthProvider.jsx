@@ -4,7 +4,7 @@ import useSessionCookie from "../hooks/useSessionCookie";
 
 const AuthProvider = ({ children }) => {
   // Retrieve functions for managing session cookies
-  const { getCookie, setCookie, removeCookie } = useSessionCookie();
+  const { getCookie, setCookie } = useSessionCookie();
   // removeCookie("auth");
   // Retrieve initial authentication data from the session cookie
   const initialAuth = getCookie("auth");
@@ -15,10 +15,8 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     if (auth) {
       setCookie("auth", JSON.stringify(auth));
-    } else {
-      removeCookie("auth");
     }
-  }, [auth, setCookie, removeCookie]);
+  }, [auth]);
 
   // Provide authentication context to the entire component tree
   return (

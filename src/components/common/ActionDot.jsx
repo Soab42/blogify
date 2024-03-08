@@ -2,6 +2,8 @@ import ThreeDotSvg from "../../assets/icons/3dots.svg";
 import EditSvg from "../../assets/icons/edit.svg";
 import DeleteSvg from "../../assets/icons/delete.svg";
 import useActive from "../../hooks/useActive";
+import { actionModalVariants } from "../animated/variants";
+import { AnimatePresence, motion } from "framer-motion";
 export default function ActionDot() {
   const [active, handleActive] = useActive();
   return (
@@ -11,16 +13,26 @@ export default function ActionDot() {
       </button>
 
       {/* <!-- Action Menus Popup --> */}
-      <div className={`action-modal-container ${active ? "" : "hidden"}`}>
-        <button className="action-menu-item hover:text-green-400">
-          <img src={EditSvg} alt="Edit" />
-          Edit
-        </button>
-        <button className="action-menu-item hover:text-red-500">
-          <img src={DeleteSvg} alt="Delete" />
-          Delete
-        </button>
-      </div>
+      <AnimatePresence>
+        {active && (
+          <motion.div
+            className={`action-modal-container`}
+            variants={actionModalVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+          >
+            <button className="action-menu-item hover:text-green-400">
+              <img src={EditSvg} alt="Edit" />
+              Edit
+            </button>
+            <button className="action-menu-item hover:text-red-500">
+              <img src={DeleteSvg} alt="Delete" />
+              Delete
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

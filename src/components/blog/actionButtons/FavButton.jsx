@@ -23,14 +23,15 @@ export default function FavButton({ postId }) {
   };
   return (
     <li>
-      <motion.button
-        onClick={handleFavorite}
-        whileTap={{ scale: [0.9, 2, 1] }}
-        className="relative"
-      >
+      <button className="relative">
         {isFavourite ? (
           <div>
-            <img src={FavIconFilled} alt="Favourite" />
+            <motion.img
+              src={FavIconFilled}
+              alt="Favourite"
+              onClick={handleFavorite}
+              whileTap={{ scale: [0.9, 2, 1] }}
+            />
             <motion.img
               transition={{ duration: 2 }}
               className="absolute top-0"
@@ -102,9 +103,14 @@ export default function FavButton({ postId }) {
             />
           </div>
         ) : (
-          <img src={FavIcon} alt="Favourite" />
+          <motion.img
+            src={FavIcon}
+            alt="Favourite"
+            onClick={handleFavorite}
+            whileTap={{ scale: [0.9, 2, 1] }}
+          />
         )}
-      </motion.button>
+      </button>
     </li>
   );
 }

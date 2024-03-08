@@ -51,23 +51,23 @@ export default function Nav() {
         <div>
           <ul className="flex items-center space-x-5">
             <li>
-              {auth?.user && (
-                <Link
-                  to="/write"
-                  className="bg-indigo-600 text-white px-6 py-2 md:py-3 rounded-md hover:bg-indigo-700 transition-all duration-200"
-                >
-                  Write
-                </Link>
-              )}
+              <Link
+                to="/write"
+                className="bg-indigo-600 text-white px-6 py-2 md:py-3 rounded-md hover:bg-indigo-700 transition-all duration-200"
+              >
+                Write
+              </Link>
             </li>
             <li>
-              <Link
-                to="#search"
-                className="flex items-center gap-2 cursor-pointer"
-              >
-                <img src={SearchIcon} alt="Search" />
-                <span>Search</span>
-              </Link>
+              {auth?.user && (
+                <Link
+                  to="#search"
+                  className="flex items-center gap-2 cursor-pointer"
+                >
+                  <img src={SearchIcon} alt="Search" />
+                  <span>Search</span>
+                </Link>
+              )}
             </li>
             <li
               className="text-white flex justify-center items-center cursor-pointer"

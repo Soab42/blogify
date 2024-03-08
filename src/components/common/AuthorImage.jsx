@@ -1,5 +1,6 @@
 import React from "react";
 import { useAvatar } from "../../hooks/useAvatar";
+import { useProfile } from "../../hooks/useProfile";
 
 export default function AuthorImage({ author = {} }) {
   const { avatarURL } = useAvatar(author);
@@ -9,11 +10,11 @@ export default function AuthorImage({ author = {} }) {
       {author?.avatar ? (
         <img
           src={avatarURL}
-          alt={author?.firstName?.slice(-1)}
+          alt={author?.firstName?.slice(0, 1)}
           className="w-full"
         />
       ) : (
-        <span>{author?.firstName?.slice(-1)}</span>
+        <span>{author?.firstName?.slice(0, 1)}</span>
       )}
     </div>
   );

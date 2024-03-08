@@ -6,8 +6,6 @@ import BlogDetails from "../blog/BlogDetails";
 import FloatingAction from "../blog/actionButtons/FloatingAction";
 import Comments from "../blog/comments/Comments";
 
-<title>Integer Maecenas Eget Viverra | Learn with Sumit</title>;
-
 const retrievePost = async ({ queryKey }) => {
   const response = await axios.get(
     `http://localhost:3000/${queryKey[0]}/${queryKey[1]}`
@@ -27,15 +25,12 @@ export default function SingleBlog() {
     queryFn: retrievePost,
   });
 
-  useDynamicTitle(isLoading ? "Loading" : "Blog");
+  const PageTitle = params?.title?.split("-").slice(0, -1).join("-");
+  useDynamicTitle(isLoading ? "Loading" : PageTitle);
 
   return (
     <main className="mb-5">
-      {/* <!-- Begin Blogs --> */}
       <BlogDetails blog={post} />
-      {/* <!-- End Blogs --> */}
-
-      {/* <!-- Begin Comments --> */}
       <Comments comments={post?.comments} postId={post?.id} />
       <FloatingAction post={post} />
     </main>

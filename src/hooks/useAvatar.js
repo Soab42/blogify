@@ -5,6 +5,7 @@ export const useAvatar = (author) => {
 
   // const { state } = useProfile();
   const isMe = author?.id === user?.id;
+
   const avatar = isMe ? `${user?.avatar}` : `${author?.avatar}`;
 
   const avatarURL = `${

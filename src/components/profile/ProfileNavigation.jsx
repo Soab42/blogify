@@ -10,6 +10,8 @@ import { useAuth } from "../../hooks/useAuth";
 import useSessionCookie from "../../hooks/useSessionCookie";
 import { useProfile } from "../../hooks/useProfile";
 import { actions } from "../../actions";
+import { AnimatePresence, motion } from "framer-motion";
+import { actionModalVariants } from "../animated/variants";
 export default function ProfileNavigation({ user }) {
   const [active, handleActive] = useActive();
   const { removeCookie } = useSessionCookie("auth");
@@ -30,26 +32,33 @@ export default function ProfileNavigation({ user }) {
         <span>{getName(user)}</span>
       </button>
       {/* <!-- Action Menus Popup --> */}
-      <div
-        className={`action-modal-container right-0 top-12 ${
-          active ? "" : "hidden"
-        }`}
-        onClick={handleActive}
-      >
-        <Link to={getNameURL(user)}>
-          <button className="action-menu-item hover:text-green-400 hover:tracking-[.3rem] hover:font-bold duration-500">
-            <img src={UserSvg} alt="UserSvg" width={30} />
-            <span> Profile</span>
-          </button>
-        </Link>
-        <button
-          className="action-menu-item hover:text-red-500 hover:tracking-[.3rem] hover:font-bold duration-500"
-          onClick={handleSignOut}
-        >
-          <img src={LogoutSvg} alt="LogoutSvg" width={30} />
-          Log out
-        </button>
-      </div>
+      <AnimatePresence>
+        {/* right-0 top-12 */}
+        {active && (
+          <motion.div
+            className={`action-modal-container right-0 top-12`}
+            variants={actionModalVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            onClick={handleActive}
+          >
+            <Link to={getNameURL(user)}>
+              <button className="action-menu-item hover:text-green-400  duration-500">
+                <img src={UserSvg} alt="UserSvg" width={30} />
+                <span> Profile</span>
+              </button>
+            </Link>
+            <button
+              className="action-menu-item hover:text-red-500 duration-500"
+              onClick={handleSignOut}
+            >
+              <img src={LogoutSvg} alt="LogoutSvg" width={30} />
+              Log out
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

@@ -7,6 +7,8 @@ import axios from "axios";
 import { useProfile } from "../../hooks/useProfile";
 import { getName } from "../../utils.js/getName";
 import useDynamicTitle from "../../hooks/useDynamicTitle";
+import { pageVariants } from "../animated/variants";
+import { motion } from "framer-motion";
 
 const retrieveProfile = async ({ queryKey }) => {
   const response = await axios.get(
@@ -27,10 +29,16 @@ export default function Profile() {
     queryFn: retrieveProfile,
   });
   const { isUser } = useProfile(profile);
-  useDynamicTitle(isLoading ? "loading" : "Profile");
+  useDynamicTitle(isLoading ? "loading" : getName(profile));
 
   return (
-    <main className="mx-auto max-w-[1020px] py-8">
+    <motion.main
+      className="mx-auto max-w-[1020px] py-8"
+      variants={pageVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+    >
       <div className="container">
         {/* <!-- profile info --> */}
         <ProfileInfo info={profile} />
@@ -48,6 +56,6 @@ export default function Profile() {
           {/* <!-- Blog Card End --> */}
         </div>
       </div>
-    </main>
+    </motion.main>
   );
 }

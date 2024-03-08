@@ -1,26 +1,46 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import FormInput from "../common/FormInput";
+import { validateEmail } from "../../utils.js/validateEmail";
+import axios from "axios";
 export default function RegistrationForm() {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     setError,
     formState: { errors },
+    watch,
   } = useForm();
-  const onSubmit = (data) => {
-    // console.log("data", data);
-    setError("root.serverError", {
-      type: "400",
-      message: "server error",
-    });
-    setError("root.random", {
-      type: "random",
-      message: "random error",
-    });
+  const password = watch("password", "");
+  const onSubmit = async (formData) => {
+    console.log(formData);
+
+    if (!validateEmail(formData?.email)) {
+      setError("email", {
+        message: "Email is not valid",
+      });
+    } else {
+      try {
+        let response = await axios.post(
+          `${import.meta.env.VITE_SERVER_BASE_URL}/auth/register`,
+          formData
+        );
+        if (response.status === 201) {
+          navigate("/login");
+        }
+      } catch (error) {
+        console.error(error);
+        setError("root.random", {
+          type: "random",
+          message: `Something went wrong: ${error.message}`,
+        });
+      }
+    }
   };
+
   return (
     <motion.form
       onSubmit={handleSubmit(onSubmit)}
@@ -33,51 +53,72 @@ export default function RegistrationForm() {
       autoComplete="off"
       className="w-full"
     >
-      <div className="mb-6">
+      <div className="xl:mb-6 mb-3">
         <FormInput label={"First Name *"} error={errors.firstName}>
           <input
             {...register("firstName", { required: "First Name is required" })}
             type="text"
             id="firstName"
             name="firstName"
-            className="w-full p-3 bg-[#030317] border border-white/20 rounded-md focus:outline-none focus:border-indigo-500"
+            className="w-full xl:p-3 p-2 bg-[#030317] border border-white/20 rounded-md focus:outline-none focus:border-indigo-500"
           />
         </FormInput>
       </div>
-      <div className="mb-6">
-        <FormInput label={"Last Name"} error={errors.lastName}>
+      <div className="xl:mb-6 mb-3">
+        <FormInput label={"Last Name *"} error={errors.lastName}>
           <input
             {...register("lastName", { required: "Last Name is required" })}
             type="text"
             id="lastName"
             name="lastName"
-            className="w-full p-3 bg-[#030317] border border-white/20 rounded-md focus:outline-none focus:border-indigo-500"
+            className="w-full xl:p-3 p-2 bg-[#030317] border border-white/20 rounded-md focus:outline-none focus:border-indigo-500"
           />
         </FormInput>
       </div>
-      <div className="mb-6">
-        <FormInput label={"Email"} error={errors.email}>
+      <div className="xl:mb-6 mb-3">
+        <FormInput label={"Email *"} error={errors.email}>
           <input
             {...register("email", { required: "Email is required" })}
             type="email"
             id="email"
             name="email"
-            className="w-full p-3 bg-[#030317] border border-white/20 rounded-md focus:outline-none focus:border-indigo-500"
+            className="w-full xl:p-3 p-2 bg-[#030317] border border-white/20 rounded-md focus:outline-none focus:border-indigo-500"
           />
         </FormInput>
       </div>
-      <div className="mb-6">
-        <FormInput label={"Password"} error={errors.password}>
+      <div className="xl:mb-6 mb-3">
+        <FormInput label={"Password *"} error={errors.password}>
           <input
-            {...register("password", { required: "Password is Required" })}
+            {...register("password", {
+              required: "Password is Required",
+              minLength: {
+                value: 8,
+                message: "Password must be at least 8 characters",
+              },
+            })}
             type="password"
             id="password"
             name="password"
-            className="w-full p-3 bg-[#030317] border border-white/20 rounded-md focus:outline-none focus:border-indigo-500"
+            className="w-full xl:p-3 p-2 bg-[#030317] border border-white/20 rounded-md focus:outline-none focus:border-indigo-500"
           />
         </FormInput>
       </div>
-      <div className="mb-6 capitalize">
+      <div className="xl:mb-6 mb-3">
+        <FormInput label={"Confirm Password *"} error={errors.cpassword}>
+          <input
+            {...register("cpassword", {
+              required: "Confirm Password is Required",
+              validate: (value) =>
+                value === password || "Passwords do not match",
+            })}
+            type="password"
+            id="cpassword"
+            name="cpassword"
+            className="w-full xl:p-3 p-2 bg-[#030317] border border-white/20 rounded-md focus:outline-none focus:border-indigo-500"
+          />
+        </FormInput>
+      </div>
+      <div className="xl:mb-6 mb-3 capitalize">
         {errors.root?.random?.message && (
           <p className="text-rose-600 mb-2 text-center w-full">
             {errors.root.random.message}

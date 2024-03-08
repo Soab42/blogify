@@ -1,13 +1,20 @@
-import React from "react";
-import FormInput from "../common/FormInput";
 import LoginForm from "../auth/LoginForm";
 import LoginImage from "../auth/LoginImage";
-import RotatingSquire from "../common/RotatingSquire";
+import { motion } from "framer-motion";
+import useDynamicTitle from "../../hooks/useDynamicTitle";
+import { pageVariants } from "../animated/variants";
 <title>Login | Learn with Sumit</title>;
 
 export default function Login() {
+  useDynamicTitle("login");
   return (
-    <section className="container flex-center relative my-4 h-[77vh]">
+    <motion.section
+      className="container flex-center relative my-4 h-[77vh]"
+      variants={pageVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+    >
       {/* <!-- Login Form into a box center of the page --> */}
 
       {/* <RotatingSquire /> */}
@@ -17,6 +24,6 @@ export default function Login() {
         <h2 className="text-2xl font-bold mb-6 text-center ">Login</h2>
         <LoginForm />
       </div>
-    </section>
+    </motion.section>
   );
 }

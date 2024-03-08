@@ -5,9 +5,12 @@ import { motion } from "framer-motion";
 import { validateEmail } from "../../utils.js/validateEmail";
 import { api } from "../../api";
 import { useAuth } from "../../hooks/useAuth";
+import useSessionCookie from "../../hooks/useSessionCookie";
 
 export default function LoginForm() {
   const { setAuth } = useAuth();
+  const { setCookie } = useSessionCookie();
+
   const navigate = useNavigate();
   const {
     register,
@@ -32,6 +35,10 @@ export default function LoginForm() {
             const refreshToken = token.refreshToken;
             console.log(`Login time auth token: ${authToken}`);
             setAuth({ user, authToken, refreshToken });
+            setCookie(
+              "auth",
+              JSON.stringify({ user, authToken, refreshToken })
+            );
             navigate("/");
           }
         }
@@ -47,7 +54,7 @@ export default function LoginForm() {
 
   return (
     <motion.form
-      className={`xl:w-3/4`}
+      className={`w-3/4`}
       onSubmit={handleSubmit(onSubmit)}
       initial={{ opacity: 0.5, x: -20 }} // Initial state (before entering viewport)
       animate={{

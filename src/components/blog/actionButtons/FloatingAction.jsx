@@ -1,28 +1,18 @@
-import { useProfile } from "../../../hooks/useProfile";
-import CommentIcon from "../../../assets/icons/comment.svg";
-
 import LikeButton from "./LikeButton";
 import FavButton from "./FavButton";
+import CommentsButton from "./CommentsButton";
 
 export default function FloatingAction({ post = {} }) {
-  // const queryClient = useQueryClient();
   const { likes, comments, id } = post;
 
   return (
-    <div className="floating-action">
+    <div className="floating-action" style={{ position: "fixed" }}>
       <ul className="floating-action-menus">
         <LikeButton likes={likes} postId={id} />
-
         {/* Favourite button */}
         <FavButton postId={id} />
-
         {/* Comments button */}
-        <a href="#comments">
-          <li>
-            <img src={CommentIcon} alt="Comments" />
-            <span>{comments?.length}</span>
-          </li>
-        </a>
+        <CommentsButton commentsLength={comments?.length} />
       </ul>
     </div>
   );

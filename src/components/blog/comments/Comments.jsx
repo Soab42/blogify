@@ -2,7 +2,6 @@ import Comment from "./Comment";
 import CommentForm from "./CommentForm";
 import { useProfile } from "../../../hooks/useProfile";
 import { Link } from "react-router-dom";
-import ActionDot from "../../common/ActionDot";
 
 export default function Comments({ comments, postId }) {
   const { user } = useProfile();
