@@ -1,3 +1,4 @@
+import { useLocalImageURL } from "../../hooks/useLocalImageUrl";
 import FormInput from "../common/FormInput";
 
 export default function BlogForm({
@@ -6,6 +7,8 @@ export default function BlogForm({
   register,
   image,
 }) {
+  const ImagePath = useLocalImageURL(image);
+
   return (
     <form onSubmit={handleSubmit()} className="createBlog">
       <div className="grid place-items-center bg-slate-600/20 h-[150px] rounded-md my-4">
@@ -19,10 +22,10 @@ export default function BlogForm({
             height: "100%",
           }}
         >
-          {image && (
+          {ImagePath && (
             <img
               className="object-cover w-full h-full absolute top-0 left-0 opacity-20 rounded-lg"
-              src={image}
+              src={ImagePath}
               alt="image"
               style={{ objectFit: "cover" }}
             />
@@ -48,6 +51,7 @@ export default function BlogForm({
         <input
           id="file-upload"
           type="file"
+          accept="image/*"
           className="hidden"
           {...register("thumbnail", { required: "thumbnail is required" })}
         />

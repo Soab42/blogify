@@ -4,10 +4,22 @@ import { useForm } from "react-hook-form";
 import { pageVariants } from "../animated/variants";
 import { motion } from "framer-motion";
 import useDynamicTitle from "../../hooks/useDynamicTitle";
+import { usePost } from "../../hooks/usePost";
 import { useEffect, useState } from "react";
 import useAxios from "../../hooks/useAxios";
-export default function AddPost() {
-  const [image, setImage] = useState();
+import { actions } from "../../actions";
+import { useNavigate } from "react-router-dom";
+import { generatePostURL } from "../../utils.js/generateURL";
+let rerender = 0;
+function AddPost() {
+  const { dispatch } = usePost();
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    thumbnail: null,
+    title: "",
+    tags: "",
+    content: "",
+  });
   const {
     register,
     handleSubmit,
@@ -16,38 +28,51 @@ export default function AddPost() {
     watch,
   } = useForm();
   const { api } = useAxios();
-  const files = watch("thumbnail");
-  const title = watch("title");
-  const tags = watch("tags");
-  const content = watch("content");
+
+  console.log("rendering", rerender);
+  rerender++;
 
   useEffect(() => {
-    if (files?.length > 0) {
-      const file = files[0];
-      const reader = new FileReader();
-      reader.onload = () => {
-        setImage(reader.result);
-      };
-      reader.onerror = () => {
-        // Handle error if file reading fails
-        console.error("Error reading the file.");
-      };
-      reader.readAsDataURL(file);
-    }
-    // Cleanup function to remove event listeners, etc.
-    return () => {
-      // Cleanup code if necessary
-    };
-  }, [watch, files]);
-
-  const onSubmit = async (data) => {
-    console.log("data", data);
-    const res = await api.post("/blogs", data);
-    console.log(res);
-    setError("root.serverError", {
-      type: "400",
-      message: "server error",
+    const subscription = watch((value, { name }) => {
+      setFormData((prevData) => {
+        return { ...prevData, [name]: value[name] };
+      });
     });
+    return () => subscription.unsubscribe();
+  }, [watch]);
+  const onSubmit = async (data) => {
+    const formData = new FormData();
+    // append image
+    for (const file of data.thumbnail) {
+      formData.append("thumbnail", file);
+    }
+    // append content
+    formData.append("title", data.title);
+    formData.append("tags", data.tags);
+    formData.append("content", data.content);
+
+    try {
+      const res = await api.post("/blogs", formData);
+      if (res.status === 201) {
+        dispatch({
+          type: actions.post.DATA_CREATED,
+          data: res.data,
+        });
+        const url = generatePostURL(
+          "/blog",
+          res.data.blog.title,
+          res.data.blog.id
+        );
+        console.log(res.data);
+        console.log(url);
+        navigate(url);
+      }
+    } catch (error) {
+      console.error(error.response.data.error);
+      setError("root.random", {
+        message: error.response.data.error,
+      });
+    }
   };
   useDynamicTitle("Create New Post");
   return (
@@ -68,16 +93,16 @@ export default function AddPost() {
               register={register}
               handleSubmit={() => handleSubmit(onSubmit)}
               errors={errors}
-              image={image}
+              image={formData.thumbnail}
             />
           </div>
 
           <div className="w-[50vw]">
             <DemoBlog
-              image={image}
-              title={title}
-              tags={tags}
-              content={content}
+              image={formData.thumbnail}
+              title={formData.title}
+              tags={formData.tags}
+              content={formData.content}
             />
           </div>
         </div>
@@ -85,3 +110,5 @@ export default function AddPost() {
     </motion.main>
   );
 }
+
+export default AddPost;

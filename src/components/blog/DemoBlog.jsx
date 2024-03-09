@@ -1,6 +1,9 @@
+import { useLocalImageURL } from "../../hooks/useLocalImageUrl";
 import BlogTags from "./BlogTags";
 
 export default function DemoBlog({ image, title, tags, content }) {
+  const ImagePath = useLocalImageURL(image);
+
   return (
     <section>
       <div className="text-center py-8">
@@ -9,7 +12,7 @@ export default function DemoBlog({ image, title, tags, content }) {
         {image && (
           <img
             className="mx-auto w-full md:w-8/12 object-contain h-80 md:h-96"
-            src={image}
+            src={ImagePath}
             alt={title}
           />
         )}
