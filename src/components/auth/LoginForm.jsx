@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { motion } from "framer-motion";
 import { validateEmail } from "../../utils.js/validateEmail";
-import { api } from "../../api";
+import { api } from "../../axios";
 import { useAuth } from "../../hooks/useAuth";
 import useSessionCookie from "../../hooks/useSessionCookie";
 

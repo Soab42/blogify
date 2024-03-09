@@ -1,7 +1,7 @@
 /* eslint-disable no-useless-catch */
 import { useEffect } from "react";
 import axios from "axios";
-import { api } from "../api";
+import { api } from "../axios";
 import { useAuth } from "./useAuth";
 
 const useAxios = () => {

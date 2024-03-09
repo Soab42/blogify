@@ -42,7 +42,7 @@ export default function MainCard({ data = {} }) {
         />
 
         {/* <!-- action dot --> */}
-        {isUser && <ActionDot />}
+        {isUser && <ActionDot postId={data.id} />}
 
         {/* <!-- action dot ends --> */}
       </div>

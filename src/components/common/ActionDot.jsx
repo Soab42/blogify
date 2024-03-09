@@ -1,10 +1,10 @@
 import ThreeDotSvg from "../../assets/icons/3dots.svg";
 import EditSvg from "../../assets/icons/edit.svg";
-import DeleteSvg from "../../assets/icons/delete.svg";
 import useActive from "../../hooks/useActive";
 import { actionModalVariants } from "../animated/variants";
 import { AnimatePresence, motion } from "framer-motion";
-export default function ActionDot() {
+import DeleteButton from "./DeleteButton";
+export default function ActionDot({ postId }) {
   const [active, handleActive] = useActive();
   return (
     <div className="absolute right-0 top-0">
@@ -26,10 +26,11 @@ export default function ActionDot() {
               <img src={EditSvg} alt="Edit" />
               Edit
             </button>
-            <button className="action-menu-item hover:text-red-500">
+            <DeleteButton postId={postId} />
+            {/* <button className="action-menu-item hover:text-red-500">
               <img src={DeleteSvg} alt="Delete" />
               Delete
-            </button>
+            </button> */}
           </motion.div>
         )}
       </AnimatePresence>
