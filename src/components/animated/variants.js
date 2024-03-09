@@ -44,3 +44,22 @@ export const actionModalVariants = {
     },
   },
 };
+
+export const searchVariants = {
+  initial: {
+    opacity: 0,
+  },
+  animate: {
+    opacity: 1,
+    transition: {
+      duration: 0.2,
+    },
+  },
+  exit: {
+    opacity: 0,
+    x: "100vh",
+    transition: {
+      duration: 0.2,
+    },
+  },
+};

@@ -10,7 +10,7 @@ import useAxios from "../../hooks/useAxios";
 import { actions } from "../../actions";
 import { useNavigate } from "react-router-dom";
 import { generatePostURL } from "../../utils.js/generateURL";
-let rerender = 0;
+import { flushSync } from "react-dom";
 function AddPost() {
   const { dispatch } = usePost();
   const navigate = useNavigate();
@@ -29,17 +29,17 @@ function AddPost() {
   } = useForm();
   const { api } = useAxios();
 
-  console.log("rendering", rerender);
-  rerender++;
-
   useEffect(() => {
     const subscription = watch((value, { name }) => {
-      setFormData((prevData) => {
-        return { ...prevData, [name]: value[name] };
+      flushSync(() => {
+        setFormData((prevData) => {
+          return { ...prevData, [name]: value[name] };
+        });
       });
     });
     return () => subscription.unsubscribe();
   }, [watch]);
+
   const onSubmit = async (data) => {
     const formData = new FormData();
     // append image
@@ -58,11 +58,7 @@ function AddPost() {
           type: actions.post.DATA_CREATED,
           data: res.data,
         });
-        const url = generatePostURL(
-          "/blog",
-          res.data.blog.title,
-          res.data.blog.id
-        );
+        const url = generatePostURL(res.data.blog);
         console.log(res.data);
         console.log(url);
         navigate(url);
@@ -74,6 +70,7 @@ function AddPost() {
       });
     }
   };
+
   useDynamicTitle("Create New Post");
   return (
     <motion.main

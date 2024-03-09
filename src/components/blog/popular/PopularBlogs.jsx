@@ -1,31 +1,39 @@
-import { useEffect } from "react";
-import { actions } from "../../../actions";
-import useAxios from "../../../hooks/useAxios";
-import { usePost } from "../../../hooks/usePost";
 import PopularCard from "./PopularCard";
+import PopularCardLoader from "../../loader/PopularCardLoader";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
+const retrievePopularPost = async ({ queryKey }) => {
+  const response = await axios.get(
+    `http://localhost:3000/${queryKey[0]}/${queryKey[1]}`
+  );
+  return response.data;
+};
 export default function PopularBlogs() {
-  const { state, dispatch } = usePost();
-  const { api } = useAxios();
-  // console.log(state);
-  useEffect(() => {
-    dispatch({ type: actions.post.POPULAR_DATA_FETCHING });
-    async function fetchData() {
-      const res = await api.get(`/blogs/popular`);
-      // console.log(res);
-      dispatch({
-        type: actions.post.POPULAR_DATA_FETCHED,
-        data: res.data.blogs,
-      });
-    }
-    fetchData();
-  }, []);
+  const {
+    data: popularPost,
+    error,
+    isLoading,
+  } = useQuery({
+    queryKey: ["blogs", "popular"],
+    queryFn: retrievePopularPost,
+  });
 
-  if (state?.popular_loading) {
-    return <div>loading....</div>;
-  }
-  if (state?.popular_error) {
-    return <div>something is error....</div>;
+  let content;
+  if (isLoading) {
+    content = <PopularCardLoader />;
+  } else if (error) {
+    content = <div>something is error....</div>;
+  } else if (popularPost?.blogs?.length === 0) {
+    content = <div>No Popular Post Found</div>;
+  } else {
+    content = (
+      <ul className="space-y-5 my-5">
+        {popularPost?.blogs?.map((popular) => (
+          <PopularCard key={popular.id} data={popular} />
+        ))}
+      </ul>
+    );
   }
 
   return (
@@ -33,12 +41,7 @@ export default function PopularBlogs() {
       <h3 className="text-slate-300 text-xl lg:text-2xl font-semibold">
         Most Popular 👍️
       </h3>
-
-      <ul className="space-y-5 my-5">
-        {state?.popularPost?.map((popular) => (
-          <PopularCard key={popular.id} data={popular} />
-        ))}
-      </ul>
+      {content}
     </div>
   );
 }

@@ -9,6 +9,7 @@ import { getName } from "../../utils.js/getName";
 import useDynamicTitle from "../../hooks/useDynamicTitle";
 import { pageVariants } from "../animated/variants";
 import { motion } from "framer-motion";
+import ProfileLoader from "../loader/ProfileLoader";
 
 const retrieveProfile = async ({ queryKey }) => {
   const response = await axios.get(
@@ -31,14 +32,14 @@ export default function Profile() {
   const { isUser } = useProfile(profile);
   useDynamicTitle(isLoading ? "loading" : getName(profile));
 
-  return (
-    <motion.main
-      className="mx-auto max-w-[1020px] py-8"
-      variants={pageVariants}
-      initial="initial"
-      animate="animate"
-      exit="exit"
-    >
+  let content;
+
+  if (isLoading) {
+    content = <ProfileLoader />;
+  } else if (error) {
+    content = <div>{error.message}</div>;
+  } else {
+    content = (
       <div className="container">
         {/* <!-- profile info --> */}
         <ProfileInfo info={profile} />
@@ -56,6 +57,17 @@ export default function Profile() {
           {/* <!-- Blog Card End --> */}
         </div>
       </div>
+    );
+  }
+  return (
+    <motion.main
+      className="mx-auto max-w-[1020px] py-8"
+      variants={pageVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+    >
+      <div className="container">{content}</div>
     </motion.main>
   );
 }

@@ -6,7 +6,7 @@ export default function FavouriteCard({ blog }) {
   const tags = blog.tags.split(",");
   return (
     <li>
-      <Link to={generatePostURL("/blog", blog?.title, blog?.id)}>
+      <Link to={generatePostURL(blog)}>
         <h3 className="text-slate-400 font-medium hover:text-slate-300 transition-all cursor-pointer">
           {blog?.title}
         </h3>

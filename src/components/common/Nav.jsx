@@ -5,14 +5,16 @@ import DayLogo from "../../assets/day.svg";
 import SearchIcon from "../../assets/icons/search.svg";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
-import ProfileNavigation from "../profile/ProfileNavigation";
+import ProfileNavigation from "./navbar/ProfileNavigation";
 import useActive from "../../hooks/useActive";
 import { useProfile } from "../../hooks/useProfile";
 import useAxios from "../../hooks/useAxios";
 import { actions } from "../../actions";
+import PortalModal from "../../portal-modal/PortalModal";
+import ThemeNevigation from "./navbar/ThemeNevigation";
+import SearchButton from "./navbar/SearchButton";
 export default function Nav() {
   const { auth } = useAuth();
-  const [active, handleActive] = useActive();
   const { dispatch } = useProfile();
   const { api } = useAxios();
 
@@ -47,7 +49,6 @@ export default function Nav() {
             <img className="w-32" src={LwsLogo} alt="lws" />
           </Link>
         </div>
-
         <div>
           <ul className="flex items-center space-x-5">
             <li>
@@ -58,7 +59,7 @@ export default function Nav() {
                 Write
               </Link>
             </li>
-            <li>
+            {/* <li>
               {auth?.user && (
                 <Link
                   to="#search"
@@ -68,20 +69,12 @@ export default function Nav() {
                   <span>Search</span>
                 </Link>
               )}
-            </li>
-            <li
-              className="text-white flex justify-center items-center cursor-pointer"
-              onClick={handleActive}
-            >
-              {active ? (
-                <img src={NightLogo} alt="night" className=" w-6 m-2" />
-              ) : (
-                <img src={DayLogo} alt="day" className=" w-6 m-2" />
-              )}
-            </li>
+            </li> */}
+            {auth?.user && <SearchButton />}
+            <ThemeNevigation />
+            <ProfileNavigation user={auth?.user} />
 
-            {/*  */}
-            {!auth?.user ? (
+            {/* {!auth?.user ? (
               <li>
                 <Link
                   to="/login"
@@ -94,7 +87,7 @@ export default function Nav() {
               <li className="flex items-center">
                 <ProfileNavigation user={auth?.user} />
               </li>
-            )}
+            )} */}
           </ul>
         </div>
       </nav>

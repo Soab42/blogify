@@ -5,6 +5,7 @@ import useDynamicTitle from "../../hooks/useDynamicTitle";
 import BlogDetails from "../blog/BlogDetails";
 import FloatingAction from "../blog/actionButtons/FloatingAction";
 import Comments from "../blog/comments/Comments";
+import BlogPostLoader from "../loader/BlogPostLoader";
 
 const retrievePost = async ({ queryKey }) => {
   const response = await axios.get(
@@ -28,11 +29,20 @@ export default function SingleBlog() {
   const PageTitle = params?.title?.split("-").slice(0, -1).join("-");
   useDynamicTitle(isLoading ? "Loading" : PageTitle);
 
-  return (
-    <main className="mb-5">
-      <BlogDetails blog={post} />
-      <Comments comments={post?.comments} postId={post?.id} />
-      <FloatingAction post={post} />
-    </main>
-  );
+  let content;
+  if (isLoading) {
+    content = <BlogPostLoader />;
+  } else if (error) {
+    content = <div>{error.message}</div>;
+  } else {
+    content = (
+      <>
+        <BlogDetails blog={post} />
+        <Comments comments={post?.comments} postId={post?.id} />
+        <FloatingAction post={post} />
+      </>
+    );
+  }
+
+  return <main className="mb-5">{content}</main>;
 }

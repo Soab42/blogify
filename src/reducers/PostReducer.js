@@ -3,11 +3,10 @@ import { actions } from "../actions";
 const initialState = {
   posts: [],
   loading: false,
+  post: {},
   error: null,
-  popularPost: [],
-  popular_loading: false,
-  popular_error: null,
   hasMore: true,
+  isEdit: false,
 };
 
 const postReducer = (state, action) => {
@@ -24,14 +23,6 @@ const postReducer = (state, action) => {
     }
 
     case actions.post.DATA_FETCHED: {
-      return {
-        ...state,
-        posts: action.data,
-        loading: false,
-        hasMore,
-      };
-    }
-    case actions.post.DATA_FETCHED_MORE: {
       const newPosts = action.data.blogs.filter(
         (blog) => !state.posts.some((post) => post.id === blog.id)
       );
@@ -67,35 +58,21 @@ const postReducer = (state, action) => {
       };
     }
 
+    case actions.post.POST_EDITING: {
+      return {
+        ...state,
+        loading: false,
+        isEdit: true,
+      };
+    }
+
     case actions.post.DATA_EDITED: {
       return {
         ...state,
-        loading: false,
-        user: action.data,
-      };
-    }
-    case actions.post.POPULAR_DATA_FETCHING: {
-      return {
-        ...state,
-        popular_loading: true,
+        isEdit: false,
       };
     }
 
-    case actions.post.POPULAR_DATA_FETCHED: {
-      return {
-        ...state,
-        popularPost: action.data,
-        popular_loading: false,
-      };
-    }
-
-    case actions.post.POPULAR_DATA_FETCH_ERROR: {
-      return {
-        ...state,
-        loading: false,
-        popular_error: action.error,
-      };
-    }
     default: {
       return state;
     }

@@ -1,6 +1,7 @@
 import FavouriteCard from "./FavouriteCard";
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../../hooks/useAxios";
+import FavCardLoader from "../../loader/FavCardLoader";
 
 export default function FavouriteBlogs() {
   const { api } = useAxios();
@@ -17,17 +18,29 @@ export default function FavouriteBlogs() {
     queryFn: retrieveFavPost,
   });
 
+  let content;
+  if (isLoading) {
+    content = <FavCardLoader />;
+  } else if (error) {
+    content = <div>something is error....</div>;
+  } else if (favPost?.blogs.length === 0) {
+    content = <div>No Favourite Blogs Post Found</div>;
+  } else {
+    content = (
+      <ul className="space-y-5 my-5">
+        {favPost?.blogs?.map((favBlog) => (
+          <FavouriteCard key={favBlog.id} blog={favBlog} />
+        ))}
+      </ul>
+    );
+  }
   return (
     <div className="sidebar-card">
       <h3 className="text-slate-300 text-xl lg:text-2xl font-semibold">
         Your Favourites ❤️
       </h3>
 
-      <ul className="space-y-5 my-5">
-        {favPost?.blogs?.map((favBlog) => (
-          <FavouriteCard key={favBlog.id} blog={favBlog} />
-        ))}
-      </ul>
+      {content}
     </div>
   );
 }

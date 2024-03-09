@@ -1,4 +1,6 @@
-export const generatePostURL = (baseURL, title, id) => {
-  const sanitizedTitle = title?.replace(/\s+/g, "-").replace(/[\s,!?|]/g, "");
-  return `${baseURL}/${sanitizedTitle}-${id}`;
+export const generatePostURL = (post) => {
+  const sanitizedTitle = post?.title
+    ?.replace(/\s+/g, "-")
+    .replace(/[\s,!?|]/g, "");
+  return `/blog/${sanitizedTitle}-${post?.id}`;
 };
