@@ -41,7 +41,7 @@ export default function Nav() {
   }, [auth?.user?.id]);
 
   return (
-    <header className=" w-full flex justify-center sticky top-0 z-30 bg-inherit">
+    <header className=" w-full flex justify-center sticky top-0 z-[100] bg-inherit">
       <nav className="container">
         {/* <!-- Logo --> */}
         <div>
