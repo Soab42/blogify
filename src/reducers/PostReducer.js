@@ -6,7 +6,6 @@ const initialState = {
   post: {},
   error: null,
   hasMore: true,
-  isEdit: false,
 };
 
 const postReducer = (state, action) => {
@@ -60,7 +59,6 @@ const postReducer = (state, action) => {
       return {
         ...state,
         loading: false,
-        isEdit: true,
         post: action.data,
       };
     }
@@ -76,11 +74,21 @@ const postReducer = (state, action) => {
 
       return {
         ...state,
-        isEdit: false,
+        loading: false,
+
         posts: updatedPosts,
-        post: action.data,
+        post: {},
       };
     }
+    case actions.post.POST_EDITING_RESET: {
+      return {
+        ...state,
+        loading: false,
+        post: {},
+      };
+    }
+    default:
+      return state;
   }
 };
 

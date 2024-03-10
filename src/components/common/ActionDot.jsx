@@ -13,7 +13,7 @@ export default function ActionDot({ post = {} }) {
   const navigate = useNavigate();
   const handleEdit = (post) => {
     dispatch({ type: actions.post.POST_EDITING, data: post });
-    navigate("/write");
+    navigate("/update");
   };
   return (
     <div className="absolute right-0 top-0">

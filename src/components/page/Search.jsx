@@ -11,8 +11,6 @@ import useActive from "../../hooks/useActive";
 import useAxios from "../../hooks/useAxios";
 import useDebounce from "../../hooks/useDebounce";
 import { searchChildVariants, searchVariants } from "../animated/variants";
-import SingleSearchPost from "../common//SingleSearchPost";
-import SearchCardLoader from "../loader/SearchCardLoader";
 import SearchInput from "../search/SearchInput";
 import SearchResult from "../search/SearchResult";
 // eslint-disable-next-line react/display-name

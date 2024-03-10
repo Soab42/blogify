@@ -30,6 +30,7 @@ export default function AnimatedRoute() {
           {/* only for LoggedIn user */}
           <Route element={<PrivateRoute />}>
             <Route path="/write" element={<AddPost />} />
+            <Route path="/update" element={<AddPost />} />
           </Route>
         </Route>
       </Routes>

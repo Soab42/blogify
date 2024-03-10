@@ -10,6 +10,5 @@ export const usePost = () => {
     dispatch,
     post: state?.post,
     posts: state?.posts,
-    isEdit: state?.isEdit,
   };
 };

@@ -8,15 +8,17 @@ import { usePost } from "../../hooks/usePost";
 import { useEffect, useState } from "react";
 import useAxios from "../../hooks/useAxios";
 import { actions } from "../../actions";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { generatePostURL } from "../../utils.js/generateURL";
 import { getLocalImageURL } from "../../utils.js/getLocalImageUrl";
 import { getBlogImage } from "../../utils.js/getBlogImage";
 import { flushSync } from "react-dom";
 
 function AddPost() {
+  const location = useLocation();
+  const isEdit = location.pathname.slice(1) === "update";
   const navigate = useNavigate();
-  const { isEdit, post, dispatch } = usePost();
+  const { post, dispatch } = usePost();
   const [formData, setFormData] = useState({
     thumbnail: isEdit ? getBlogImage(post.thumbnail) : null,
     title: isEdit ? post?.title : "",
