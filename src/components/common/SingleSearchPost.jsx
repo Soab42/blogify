@@ -1,17 +1,16 @@
 import React from "react";
-import { useBlogImage } from "../../hooks/useBlogImage";
 import { useHighlightMatches } from "../../hooks/useHighlightMatches";
 import { generatePostURL } from "../../utils.js/generateURL";
 import { Link } from "react-router-dom";
+import { getBlogImage } from "../../utils.js/getBlogImage";
 export default function SingleSearchPost({ post = {}, searchValue }) {
-  const { thumbnailLink } = useBlogImage(post?.thumbnail);
   const match = useHighlightMatches(searchValue);
   const {} = generatePostURL();
   return (
     <div className="flex gap-6 py-2">
       <img
         className="w-56 object-contain"
-        src={thumbnailLink}
+        src={getBlogImage(post.thumbnail)}
         alt={post?.title}
       />
       <Link to={generatePostURL(post)} className="mt-2">

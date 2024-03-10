@@ -1,11 +1,11 @@
 import { AnimatePresence } from "framer-motion";
 import SearchIcon from "../../../assets/icons/search.svg";
-import Portal from "../../../Portal";
+import usePortal from "../../../hooks/usePortal";
 import Search from "../../page/Search";
 import { useRef } from "react";
 export default function SearchButton() {
   const modalRef = useRef();
-
+  const PortalComponent = usePortal();
   return (
     <li>
       <button
@@ -16,9 +16,9 @@ export default function SearchButton() {
         <span>Search</span>
       </button>
       <AnimatePresence>
-        <Portal>
+        <PortalComponent>
           <Search ref={modalRef} />
-        </Portal>
+        </PortalComponent>
       </AnimatePresence>
     </li>
   );

@@ -1,13 +1,12 @@
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
-import { useBlogImage } from "../../hooks/useBlogImage";
 import { useProfile } from "../../hooks/useProfile";
 import { generatePostURL } from "../../utils.js/generateURL";
 import ActionDot from "../common/ActionDot";
 import CardAuthor from "./CardAuthor";
+import { getBlogImage } from "../../utils.js/getBlogImage";
 export default function MainCard({ data = {} }) {
-  const { thumbnailLink } = useBlogImage(data.thumbnail);
   const { isUser } = useProfile(data.author);
   const ref = useRef(null);
   const isInView = useInView(ref, {
@@ -26,7 +25,7 @@ export default function MainCard({ data = {} }) {
         transition: "all 1s cubic-bezier(0.25, 0.1, 0.25, 1) .1s",
       }}
     >
-      <img className="blog-thumb" src={thumbnailLink} alt="" />
+      <img className="blog-thumb" src={getBlogImage(data.thumbnail)} alt="" />
       <div className="mt-2 relative">
         <Link to={generatePostURL(data)}>
           <h3 className="text-slate-300 text-xl lg:text-2xl">{data.title}</h3>

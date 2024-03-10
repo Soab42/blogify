@@ -11,19 +11,18 @@ import { actions } from "../../actions";
 import { useNavigate } from "react-router-dom";
 import { generatePostURL } from "../../utils.js/generateURL";
 import { getLocalImageURL } from "../../utils.js/getLocalImageUrl";
-import { useBlogImage } from "../../hooks/useBlogImage";
+import { getBlogImage } from "../../utils.js/getBlogImage";
+import { flushSync } from "react-dom";
 
 function AddPost() {
   const navigate = useNavigate();
   const { isEdit, post, dispatch } = usePost();
-  const { thumbnailLink } = useBlogImage(isEdit && post.thumbnail);
   const [formData, setFormData] = useState({
-    thumbnail: isEdit ? thumbnailLink : null,
+    thumbnail: isEdit ? getBlogImage(post.thumbnail) : null,
     title: isEdit ? post?.title : "",
     tags: isEdit ? post?.tags : "",
     content: isEdit ? post?.content : "",
   });
-  console.log(formData);
 
   const {
     register,
@@ -31,22 +30,32 @@ function AddPost() {
     formState: { errors },
     setError,
     watch,
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      thumbnail: "",
+      title: isEdit ? post?.title : "",
+      tags: isEdit ? post?.tags : "",
+      content: isEdit ? post?.content : "",
+    },
+  });
   const { api } = useAxios();
   useEffect(() => {
     const subscription = watch((value, { name }) => {
-      if (name === "thumbnail") {
-        const thumbnail = getLocalImageURL(value.thumbnail);
-        setFormData((prevData) => ({
-          ...prevData,
-          thumbnail,
-        }));
-      } else {
-        setFormData((prevData) => ({
-          ...prevData,
-          [name]: value[name],
-        }));
-      }
+      flushSync(() => {
+        if (name === "thumbnail") {
+          getLocalImageURL(value[name], (thumbnail) => {
+            setFormData((prevData) => ({
+              ...prevData,
+              thumbnail,
+            }));
+          });
+        } else {
+          setFormData((prevData) => ({
+            ...prevData,
+            [name]: value[name],
+          }));
+        }
+      });
     });
     return () => subscription.unsubscribe();
   }, [watch]);
@@ -63,15 +72,27 @@ function AddPost() {
     formData.append("content", data.content);
 
     try {
-      const res = await api.post("/blogs", formData);
-      if (res.status === 201) {
-        dispatch({
-          type: actions.post.DATA_CREATED,
-          data: res.data,
-        });
-        const url = generatePostURL(res.data.blog);
+      if (isEdit) {
+        const res = await api.patch(`/blogs/${post.id}`, formData);
+        if (res.status === 200) {
+          dispatch({
+            type: actions.post.DATA_EDITED,
+            data: res.data,
+          });
+          const url = generatePostURL(res.data);
+          navigate(url);
+        }
+      } else {
+        const res = await api.post("/blogs", formData);
 
-        navigate(url);
+        if (res.status === 201) {
+          dispatch({
+            type: actions.post.DATA_CREATED,
+            data: res.data,
+          });
+          const url = generatePostURL(res.data.blog);
+          navigate(url);
+        }
       }
     } catch (error) {
       console.error(error.response.data.error);
@@ -80,8 +101,7 @@ function AddPost() {
       });
     }
   };
-  // console.log(state);
-  useDynamicTitle(!isEdit ? "Create New Post" : "Update Post");
+  useDynamicTitle(!isEdit ? "Create New Post" : "Update Blog Post");
   return (
     <motion.main
       variants={pageVariants}
@@ -91,7 +111,7 @@ function AddPost() {
     >
       <section className="min-h-[80vh]">
         <div className=" text-center w-full text-3xl font-bold tracking-widest shadow-sm shadow-blue-400/20 pb-2 rounded-xl">
-          {!isEdit ? "Create New" : "Update"} Post
+          {!isEdit ? "Create New" : "Update Blog"} Post
         </div>
         <div className="container flex justify-between">
           {/* <!-- Form Input field for creating Blog Post --> */}
@@ -101,6 +121,7 @@ function AddPost() {
               handleSubmit={() => handleSubmit(onSubmit)}
               errors={errors}
               image={formData?.thumbnail}
+              isEdit={isEdit}
             />
           </div>
 

@@ -8,7 +8,7 @@ export default function SearchCardLoader() {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
       >
-        {[0, 1, 2].map((index) => (
+        {[0, 1, 2, 3, 4, 5].map((index) => (
           <CardLoader key={index} index={index} />
         ))}
       </motion.div>

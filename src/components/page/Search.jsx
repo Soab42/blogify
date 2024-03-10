@@ -1,4 +1,5 @@
 /* eslint-disable react/display-name */
+import { AnimatePresence, motion } from "framer-motion";
 import {
   forwardRef,
   useImperativeHandle,
@@ -6,14 +7,14 @@ import {
   useState,
 } from "react";
 import CloseIcon from "../../assets/icons/close.svg";
-import { AnimatePresence, motion } from "framer-motion";
-import { searchVariants } from "../animated/variants";
 import useActive from "../../hooks/useActive";
-import SingleSearchPost from "../common//SingleSearchPost";
-import useDebounce from "../../hooks/useDebounce";
 import useAxios from "../../hooks/useAxios";
+import useDebounce from "../../hooks/useDebounce";
+import { searchChildVariants, searchVariants } from "../animated/variants";
+import SingleSearchPost from "../common//SingleSearchPost";
 import SearchCardLoader from "../loader/SearchCardLoader";
 import SearchInput from "../search/SearchInput";
+import SearchResult from "../search/SearchResult";
 // eslint-disable-next-line react/display-name
 
 const Search = forwardRef((props, ref) => {
@@ -61,6 +62,7 @@ const Search = forwardRef((props, ref) => {
       setError(error?.response?.data?.message || "Something went wrong !");
     }
   }, 500);
+
   const handleChange = (e) => {
     doSearch(e.target.value);
   };
@@ -75,36 +77,35 @@ const Search = forwardRef((props, ref) => {
           animate="animate"
           exit="exit"
         >
-          <div className="relative w-6/12 mx-auto bg-slate-900 p-4 border border-slate-600/50 rounded-lg shadow-lg shadow-slate-400/10">
+          <motion.div
+            className="relative w-6/12 mx-auto bg-slate-900 p-4 border border-slate-600/50 rounded-lg shadow-lg shadow-slate-400/10"
+            variants={searchChildVariants}
+          >
             <SearchInput onChange={handleChange} />
 
             {/* <!-- Search Result --> */}
             <div className="">
-              <h3 className="text-slate-400 font-bold mt-6">
+              <motion.h3 className="text-slate-400 font-bold mt-6">
                 {searchResult?.length && !error && (
                   <span>
-                    Search Results : {searchResult?.length} post found{" "}
-                    <span className="text-green-400">{searchResult.query}</span>{" "}
-                    keyword
+                    Search Results :{" "}
+                    <span className="text-green-400">
+                      {searchResult?.length}{" "}
+                    </span>{" "}
+                    post found matching "
+                    <span className="text-green-400 text-lg">
+                      {searchResult.query}
+                    </span>
+                    " keyword
                   </span>
                 )}
-              </h3>
+              </motion.h3>
 
-              <div className="my-4 divide-y-2 divide-slate-500/30 max-h-[440px] overflow-y-scroll overscroll-contain">
-                {loading ? (
-                  <SearchCardLoader />
-                ) : error ? (
-                  <div className="text-red-300">{error}</div>
-                ) : (
-                  searchResult?.data?.map((post) => (
-                    <SingleSearchPost
-                      key={post.id}
-                      post={post}
-                      searchValue={searchResult.query}
-                    />
-                  ))
-                )}
-              </div>
+              <SearchResult
+                error={error}
+                loading={loading}
+                searchResult={searchResult}
+              />
             </div>
 
             <button onClick={() => setShow(false)}>
@@ -114,7 +115,7 @@ const Search = forwardRef((props, ref) => {
                 className="absolute right-2 top-2 cursor-pointer w-8 h-8"
               />
             </button>
-          </div>
+          </motion.div>
         </motion.section>
       </AnimatePresence>
     )

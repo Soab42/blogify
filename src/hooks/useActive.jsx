@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-const useActive = () => {
-  const [active, setActive] = useState(false);
+const useActive = (initialState) => {
+  const [active, setActive] = useState(initialState || false);
   const handleActive = (value) => {
     if (typeof value === "boolean") {
       setActive(value);

@@ -1,39 +1,11 @@
-import { useEffect } from "react";
 import LwsLogo from "../../assets/logo.svg";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import ProfileNavigation from "./navbar/ProfileNavigation";
-import { useProfile } from "../../hooks/useProfile";
-import useAxios from "../../hooks/useAxios";
-import { actions } from "../../actions";
 import ThemeNevigation from "./navbar/ThemeNevigation";
 import SearchButton from "./navbar/SearchButton";
 export default function Nav() {
   const { auth } = useAuth();
-  const { dispatch } = useProfile();
-  const { api } = useAxios();
-
-  useEffect(() => {
-    dispatch({ type: actions.profile.DATA_FETCHING });
-    const fetchProfile = async () => {
-      try {
-        const response = await api.get(`/profile/${auth?.user?.id}`);
-        if (response.status === 200) {
-          dispatch({
-            type: actions.profile.DATA_FETCHED,
-            data: response.data,
-          });
-        }
-      } catch (error) {
-        console.error(error);
-        dispatch({
-          type: actions.profile.DATA_FETCH_ERROR,
-          error: error.message,
-        });
-      }
-    };
-    auth?.user?.id && fetchProfile();
-  }, []);
 
   return (
     <header className=" w-full flex justify-center sticky top-0 z-[100] bg-inherit">

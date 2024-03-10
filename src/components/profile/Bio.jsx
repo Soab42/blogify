@@ -34,9 +34,6 @@ export default function Bio({ info = {} }) {
     }
   };
 
-  useEffect(() => {
-    setBio(user?.bio);
-  }, [user?.bio]);
   return (
     <div className="mt-4 flex items-start gap-2 lg:mt-6 ">
       <div className="flex-1">

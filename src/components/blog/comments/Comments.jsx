@@ -9,11 +9,10 @@ export default function Comments({ comments, postId }) {
   return (
     <section id="comments" className="relative">
       <div className="mx-auto w-full md:w-10/12 container">
-        {comments?.length > 0 && (
-          <h2 className="text-3xl font-bold my-8">
-            Comments ({comments?.length})
-          </h2>
-        )}
+        <h2 className="text-3xl font-bold my-8">
+          Comments{" "}
+          {comments && comments.length > 0 && <span>({comments.length})</span>}
+        </h2>
 
         {user && <CommentForm postId={postId} />}
 

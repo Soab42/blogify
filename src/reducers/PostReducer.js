@@ -19,14 +19,14 @@ const postReducer = (state, action) => {
     }
 
     case actions.post.DATA_FETCHED: {
-      const newPosts = action.data.blogs.filter(
+      const newPost = action.data.blogs.filter(
         (blog) => !state.posts.some((post) => post.id === blog.id)
       );
       const total = action?.data?.page * action?.data?.limit;
       const hasMore = action?.data?.total > total;
       return {
         ...state,
-        posts: [...state.posts, ...newPosts],
+        posts: [...state.posts, ...newPost],
         loading: false,
         hasMore,
       };
@@ -57,7 +57,6 @@ const postReducer = (state, action) => {
     }
 
     case actions.post.POST_EDITING: {
-      console.log(action);
       return {
         ...state,
         loading: false,
@@ -67,11 +66,19 @@ const postReducer = (state, action) => {
     }
 
     case actions.post.DATA_EDITED: {
-      console.log(action);
+      const updatedPosts = state.posts.map((post) => {
+        if (post.id === action.data.id) {
+          return action.data;
+        } else {
+          return post;
+        }
+      });
 
       return {
         ...state,
         isEdit: false,
+        posts: updatedPosts,
+        post: action.data,
       };
     }
   }
