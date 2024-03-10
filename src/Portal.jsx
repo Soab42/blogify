@@ -1,7 +1,7 @@
 import { createPortal } from "react-dom";
 import { useEffect } from "react";
 
-const Portal = ({ children }) => {
+const usePortal = ({ children }) => {
   const mountElement = document.getElementById("portal-root");
   const elementDiv = document.createElement("div");
 
@@ -14,4 +14,4 @@ const Portal = ({ children }) => {
   return createPortal(children, elementDiv);
 };
 
-export default Portal;
+export default usePortal;
