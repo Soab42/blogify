@@ -23,7 +23,7 @@ export default function Home() {
   const { api } = useAxios();
 
   useEffect(() => {
-    if (state.post.length > 0) {
+    if (state?.posts?.length === 0) {
       dispatch({ type: actions.post.DATA_FETCHING });
     }
     async function fetchData() {
@@ -49,7 +49,6 @@ export default function Home() {
   useDynamicTitle(state?.loading ? "loading" : undefined);
 
   let content;
-
   if (state?.loading) {
     content = <MainCardLoader />;
   } else if (state?.error) {

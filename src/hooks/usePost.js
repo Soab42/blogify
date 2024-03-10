@@ -3,5 +3,13 @@ import { useContext } from "react";
 import { PostContext } from "../context";
 
 export const usePost = () => {
-  return useContext(PostContext);
+  const { state, dispatch } = useContext(PostContext);
+
+  return {
+    state,
+    dispatch,
+    post: state?.post,
+    posts: state?.posts,
+    isEdit: state?.isEdit,
+  };
 };

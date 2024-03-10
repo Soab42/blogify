@@ -41,7 +41,7 @@ export default function MainCard({ data = {} }) {
           createdAt={data.createdAt}
         />
 
-        {isUser && <ActionDot postId={data.id} />}
+        {isUser && <ActionDot post={data} />}
       </div>
     </div>
   );

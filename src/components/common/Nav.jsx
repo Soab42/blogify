@@ -1,16 +1,11 @@
 import { useEffect } from "react";
 import LwsLogo from "../../assets/logo.svg";
-import NightLogo from "../../assets/night.svg";
-import DayLogo from "../../assets/day.svg";
-import SearchIcon from "../../assets/icons/search.svg";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import ProfileNavigation from "./navbar/ProfileNavigation";
-import useActive from "../../hooks/useActive";
 import { useProfile } from "../../hooks/useProfile";
 import useAxios from "../../hooks/useAxios";
 import { actions } from "../../actions";
-import PortalModal from "../../portal-modal/PortalModal";
 import ThemeNevigation from "./navbar/ThemeNevigation";
 import SearchButton from "./navbar/SearchButton";
 export default function Nav() {
@@ -38,7 +33,7 @@ export default function Nav() {
       }
     };
     auth?.user?.id && fetchProfile();
-  }, [auth?.user?.id]);
+  }, []);
 
   return (
     <header className=" w-full flex justify-center sticky top-0 z-[100] bg-inherit">
@@ -59,35 +54,10 @@ export default function Nav() {
                 Write
               </Link>
             </li>
-            {/* <li>
-              {auth?.user && (
-                <Link
-                  to="#search"
-                  className="flex items-center gap-2 cursor-pointer"
-                >
-                  <img src={SearchIcon} alt="Search" />
-                  <span>Search</span>
-                </Link>
-              )}
-            </li> */}
+
             {auth?.user && <SearchButton />}
             <ThemeNevigation />
             <ProfileNavigation user={auth?.user} />
-
-            {/* {!auth?.user ? (
-              <li>
-                <Link
-                  to="/login"
-                  className="text-white/50 hover:text-white transition-all duration-200"
-                >
-                  Login
-                </Link>
-              </li>
-            ) : (
-              <li className="flex items-center">
-                <ProfileNavigation user={auth?.user} />
-              </li>
-            )} */}
           </ul>
         </div>
       </nav>

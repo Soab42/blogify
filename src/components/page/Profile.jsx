@@ -20,7 +20,6 @@ const retrieveProfile = async ({ queryKey }) => {
 export default function Profile() {
   const params = useParams();
   const id = params?.name?.split("-").pop();
-
   const {
     data: profile,
     error,

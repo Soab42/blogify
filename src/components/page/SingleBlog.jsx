@@ -6,6 +6,7 @@ import BlogDetails from "../blog/BlogDetails";
 import FloatingAction from "../blog/actionButtons/FloatingAction";
 import Comments from "../blog/comments/Comments";
 import BlogPostLoader from "../loader/BlogPostLoader";
+import { usePost } from "../../hooks/usePost";
 
 const retrievePost = async ({ queryKey }) => {
   const response = await axios.get(
@@ -16,7 +17,6 @@ const retrievePost = async ({ queryKey }) => {
 export default function SingleBlog() {
   const params = useParams();
   const id = params?.title?.split("-").pop();
-
   const {
     data: post,
     error,

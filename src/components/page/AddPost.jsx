@@ -10,16 +10,21 @@ import useAxios from "../../hooks/useAxios";
 import { actions } from "../../actions";
 import { useNavigate } from "react-router-dom";
 import { generatePostURL } from "../../utils.js/generateURL";
-import { flushSync } from "react-dom";
+import { getLocalImageURL } from "../../utils.js/getLocalImageUrl";
+import { useBlogImage } from "../../hooks/useBlogImage";
+
 function AddPost() {
-  const { dispatch } = usePost();
   const navigate = useNavigate();
+  const { isEdit, post, dispatch } = usePost();
+  const { thumbnailLink } = useBlogImage(isEdit && post.thumbnail);
   const [formData, setFormData] = useState({
-    thumbnail: null,
-    title: "",
-    tags: "",
-    content: "",
+    thumbnail: isEdit ? thumbnailLink : null,
+    title: isEdit ? post?.title : "",
+    tags: isEdit ? post?.tags : "",
+    content: isEdit ? post?.content : "",
   });
+  console.log(formData);
+
   const {
     register,
     handleSubmit,
@@ -28,14 +33,20 @@ function AddPost() {
     watch,
   } = useForm();
   const { api } = useAxios();
-
   useEffect(() => {
     const subscription = watch((value, { name }) => {
-      flushSync(() => {
-        setFormData((prevData) => {
-          return { ...prevData, [name]: value[name] };
-        });
-      });
+      if (name === "thumbnail") {
+        const thumbnail = getLocalImageURL(value.thumbnail);
+        setFormData((prevData) => ({
+          ...prevData,
+          thumbnail,
+        }));
+      } else {
+        setFormData((prevData) => ({
+          ...prevData,
+          [name]: value[name],
+        }));
+      }
     });
     return () => subscription.unsubscribe();
   }, [watch]);
@@ -59,8 +70,7 @@ function AddPost() {
           data: res.data,
         });
         const url = generatePostURL(res.data.blog);
-        console.log(res.data);
-        console.log(url);
+
         navigate(url);
       }
     } catch (error) {
@@ -70,8 +80,8 @@ function AddPost() {
       });
     }
   };
-
-  useDynamicTitle("Create New Post");
+  // console.log(state);
+  useDynamicTitle(!isEdit ? "Create New Post" : "Update Post");
   return (
     <motion.main
       variants={pageVariants}
@@ -81,7 +91,7 @@ function AddPost() {
     >
       <section className="min-h-[80vh]">
         <div className=" text-center w-full text-3xl font-bold tracking-widest shadow-sm shadow-blue-400/20 pb-2 rounded-xl">
-          Create New Post
+          {!isEdit ? "Create New" : "Update"} Post
         </div>
         <div className="container flex justify-between">
           {/* <!-- Form Input field for creating Blog Post --> */}
@@ -90,16 +100,16 @@ function AddPost() {
               register={register}
               handleSubmit={() => handleSubmit(onSubmit)}
               errors={errors}
-              image={formData.thumbnail}
+              image={formData?.thumbnail}
             />
           </div>
 
           <div className="w-[50vw]">
             <DemoBlog
-              image={formData.thumbnail}
-              title={formData.title}
-              tags={formData.tags}
-              content={formData.content}
+              image={formData?.thumbnail}
+              title={formData?.title}
+              tags={formData?.tags}
+              content={formData?.content}
             />
           </div>
         </div>

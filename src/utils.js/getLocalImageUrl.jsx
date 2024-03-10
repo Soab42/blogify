@@ -1,13 +1,9 @@
-import { useState } from "react";
-
-export const useLocalImageURL = (files) => {
-  const [imagePath, setImagePath] = useState();
-
+export const getLocalImageURL = (files) => {
   if (files?.length > 0) {
     const file = files[0];
     const reader = new FileReader();
     reader.onload = () => {
-      setImagePath(reader.result);
+      return reader.result;
     };
     reader.onerror = () => {
       // Handle error if file reading fails
@@ -15,6 +11,4 @@ export const useLocalImageURL = (files) => {
     };
     reader.readAsDataURL(file);
   }
-
-  return imagePath;
 };

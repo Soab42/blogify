@@ -3,10 +3,8 @@ import { AuthContext } from "../context";
 import useSessionCookie from "../hooks/useSessionCookie";
 
 const AuthProvider = ({ children }) => {
-  // Retrieve functions for managing session cookies
   const { getCookie, setCookie } = useSessionCookie();
-  // removeCookie("auth");
-  // Retrieve initial authentication data from the session cookie
+
   const initialAuth = getCookie("auth");
 
   // Initialize state for authentication data
@@ -18,7 +16,6 @@ const AuthProvider = ({ children }) => {
     }
   }, [auth]);
 
-  // Provide authentication context to the entire component tree
   return (
     <AuthContext.Provider value={{ auth, setAuth }}>
       {children}
