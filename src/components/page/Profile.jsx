@@ -1,16 +1,16 @@
+import { useParams } from "react-router-dom";
 import MainCard from "../blog/MainCard";
 import ProfileInfo from "../profile/ProfileInfo";
-import { useParams } from "react-router-dom";
 
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useProfile } from "../../hooks/useProfile";
-import { getName } from "../../utils.js/getName";
-import useDynamicTitle from "../../hooks/useDynamicTitle";
-import { pageVariants } from "../animated/variants";
+
 import { motion } from "framer-motion";
-import ProfileLoader from "../loader/ProfileLoader";
+import useDynamicTitle from "../../hooks/useDynamicTitle";
+import { getName } from "../../utils.js/getName";
 import { isUser } from "../../utils.js/isUser";
+import { pageVariants } from "../animated/variants";
+import ProfileLoader from "../loader/ProfileLoader";
 
 const retrieveProfile = async ({ queryKey }) => {
   const response = await axios.get(
