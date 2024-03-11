@@ -7,9 +7,11 @@ import deleteIcon from "../../../assets/icons/delete.svg";
 import useAxios from "../../../hooks/useAxios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useProfile } from "../../../hooks/useProfile";
+import { isUser } from "../../../utils.js/isUser";
 export default function Comment({ comment, postId }) {
   const { author, content, id } = comment;
-  const { isUser } = useProfile(author);
+  const { user } = useProfile();
+  const isMe = isUser(user, author?.id);
   const [active, setIsActive] = useActive();
   const buttonVariant = {
     hidden: {
@@ -75,7 +77,7 @@ export default function Comment({ comment, postId }) {
         <p className="text-slate-300">{content}</p>
       </div>
       <AnimatePresence>
-        {active && isUser && (
+        {active && isMe && (
           <motion.div
             onClick={handleComment}
             variants={buttonVariant}

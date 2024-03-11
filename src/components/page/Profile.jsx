@@ -10,6 +10,7 @@ import useDynamicTitle from "../../hooks/useDynamicTitle";
 import { pageVariants } from "../animated/variants";
 import { motion } from "framer-motion";
 import ProfileLoader from "../loader/ProfileLoader";
+import { isUser } from "../../utils.js/isUser";
 
 const retrieveProfile = async ({ queryKey }) => {
   const response = await axios.get(
@@ -28,7 +29,7 @@ export default function Profile() {
     queryKey: ["profile", id],
     queryFn: retrieveProfile,
   });
-  const { isUser } = useProfile(profile);
+  const isME = isUser(profile, id);
   useDynamicTitle(isLoading ? "loading" : getName(profile));
 
   let content;
@@ -45,7 +46,7 @@ export default function Profile() {
         {/* <!-- end profile info --> */}
 
         <h4 className="mt-6 text-xl lg:mt-8 lg:text-2xl">
-          {isUser ? "Your" : getName(profile)} Blogs
+          {isME ? "Your" : getName(profile)} Blogs
         </h4>
         <div className="my-6 space-y-4">
           {/* <!-- Blog Card Start --> */}

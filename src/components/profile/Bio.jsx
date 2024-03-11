@@ -6,12 +6,14 @@ import useActive from "../../hooks/useActive";
 import useAxios from "../../hooks/useAxios";
 import { useProfile } from "../../hooks/useProfile";
 import { useQueryClient } from "@tanstack/react-query";
+import { isUser } from "../../utils.js/isUser";
 export default function Bio({ info = {} }) {
   const queryClient = useQueryClient();
-  const { isUser, user, dispatch } = useProfile(info);
+  const { user, dispatch } = useProfile(info);
   const [isEdit, setIsEdit] = useActive();
   const { api } = useAxios();
   const [bio, setBio] = useState(user?.bio);
+  const isMe = isUser(user, info?.id);
   const handleEdit = async () => {
     dispatch({ type: actions.profile.DATA_FETCHING });
     const updatedUser = { ...user, bio };
@@ -53,7 +55,7 @@ export default function Bio({ info = {} }) {
         )}
       </div>
 
-      {isUser && (
+      {isMe && (
         <button className="flex-center h-7 w-7 rounded-full">
           {!isEdit ? (
             <img src={EditIcon} alt="Edit" onClick={setIsEdit} />

@@ -6,8 +6,10 @@ import { generatePostURL } from "../../utils.js/generateURL";
 import ActionDot from "../common/ActionDot";
 import CardAuthor from "./CardAuthor";
 import { getBlogImage } from "../../utils.js/getBlogImage";
+import { isUser } from "../../utils.js/isUser";
 export default function MainCard({ data = {} }) {
-  const { isUser } = useProfile(data.author);
+  const { user } = useProfile();
+  const isMe = isUser(user, data.author.id);
   const ref = useRef(null);
   const isInView = useInView(ref, {
     once: true,
@@ -40,7 +42,7 @@ export default function MainCard({ data = {} }) {
           createdAt={data.createdAt}
         />
 
-        {isUser && <ActionDot post={data} />}
+        {isMe && <ActionDot post={data} />}
       </div>
     </div>
   );

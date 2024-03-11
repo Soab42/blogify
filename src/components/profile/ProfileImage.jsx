@@ -4,11 +4,12 @@ import { useAvatar } from "../../hooks/useAvatar";
 import { useProfile } from "../../hooks/useProfile";
 import useAxios from "../../hooks/useAxios";
 import { actions } from "../../actions";
+import { isUser } from "../../utils.js/isUser";
 export default function ProfileImage({ author }) {
-  const { isUser, dispatch } = useProfile(author);
+  const { user, dispatch } = useProfile(author);
   const { api } = useAxios();
   const fileUploaderRef = useRef();
-
+  const isME = isUser(user, author.id);
   const handleImageUpload = (event) => {
     event.preventDefault();
     fileUploaderRef.current.addEventListener("change", updateImageDisplay);
@@ -42,7 +43,7 @@ export default function ProfileImage({ author }) {
         <AuthorProfileImage author={author} />
       </div>
 
-      {isUser && (
+      {isME && (
         <form id="form" encType="multipart/form-data">
           <button
             className="grid place-items-center absolute bottom-0 right-0 h-7 w-7 rounded-full bg-slate-700 hover:bg-slate-700/80"
