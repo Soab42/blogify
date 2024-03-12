@@ -6,6 +6,8 @@ import useAxios from "../../../hooks/useAxios";
 import { useProfile } from "../../../hooks/useProfile";
 import { isPresentId } from "../../../utils.js/isPresentId";
 import AnimatedValueSpan from "../../animated/AnimatedValueSpan";
+import { toast } from "react-toastify";
+
 export default function LikeButton({ likes, postId }) {
   const queryClient = useQueryClient();
   const { user } = useProfile();
@@ -15,10 +17,12 @@ export default function LikeButton({ likes, postId }) {
   let isLiked = isPresentId(likes, user?.id);
 
   const handleLike = async () => {
-    try {
-      mutation.mutate("like");
-    } catch (error) {
-      console.log("error", error);
+    if (user) {
+      try {
+        mutation.mutate("like");
+      } catch (error) {
+        console.log("error", error);
+      }
     }
   };
   const mutation = useMutation({

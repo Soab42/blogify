@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import FormInput from "../common/FormInput";
-import { validateEmail } from "../../utils.js/validateEmail";
+
 import axios from "axios";
 export default function RegistrationForm() {
   const navigate = useNavigate();
@@ -18,26 +18,20 @@ export default function RegistrationForm() {
   const onSubmit = async (formData) => {
     console.log(formData);
 
-    if (!validateEmail(formData?.email)) {
-      setError("email", {
-        message: "Email is not valid",
-      });
-    } else {
-      try {
-        let response = await axios.post(
-          `${import.meta.env.VITE_SERVER_BASE_URL}/auth/register`,
-          formData
-        );
-        if (response.status === 201) {
-          navigate("/login");
-        }
-      } catch (error) {
-        console.error(error);
-        setError("root.random", {
-          type: "random",
-          message: `Something went wrong: ${error.message}`,
-        });
+    try {
+      let response = await axios.post(
+        `${import.meta.env.VITE_SERVER_BASE_URL}/auth/register`,
+        formData
+      );
+      if (response.status === 201) {
+        navigate("/login");
       }
+    } catch (error) {
+      console.error(error);
+      setError("root.random", {
+        type: "random",
+        message: `Something went wrong: ${error.message}`,
+      });
     }
   };
 
@@ -78,7 +72,13 @@ export default function RegistrationForm() {
       <div className="xl:mb-6 mb-3">
         <FormInput label={"Email *"} error={errors.email}>
           <input
-            {...register("email", { required: "Email is required" })}
+            {...register("email", {
+              required: "Email is required",
+              pattern: {
+                value: /\S+@\S+\.\S+/,
+                message: "Entered value does not match email format",
+              },
+            })}
             type="email"
             id="email"
             name="email"

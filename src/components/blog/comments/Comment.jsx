@@ -74,7 +74,7 @@ export default function Comment({ comment, postId }) {
           {getName(author)}
         </Link>
 
-        <p className="text-slate-300">{content}</p>
+        <p className="dark:text-slate-300">{content}</p>
       </div>
       <AnimatePresence>
         {active && isMe && (

@@ -4,16 +4,24 @@ import { useAuth } from "../../hooks/useAuth";
 import ProfileNavigation from "./navbar/ProfileNavigation";
 import ThemeNevigation from "./navbar/ThemeNevigation";
 import SearchButton from "./navbar/SearchButton";
+
 export default function Nav() {
   const { auth } = useAuth();
 
   return (
-    <header className=" w-full flex justify-center sticky top-0 z-[100] bg-inherit">
+    <header className=" w-full flex justify-center sticky top-0 z-[100] dark:bg-inherit bg-white backdrop-blur-xl">
       <nav className="container">
         {/* <!-- Logo --> */}
         <div>
           <Link to="/">
-            <img className="w-32" src={LwsLogo} alt="lws" />
+            <img className="w-32 dark:inline hidden" src={LwsLogo} alt="lws" />
+            <img
+              className="w-32 dark:hidden"
+              src={
+                "https://learnwithsumit.com/_next/static/media/lws-logo-light.ae7b3c3a.svg"
+              }
+              alt="lws"
+            />
           </Link>
         </div>
         <div>

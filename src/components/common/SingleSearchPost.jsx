@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import { getBlogImage } from "../../utils.js/getBlogImage";
 export default function SingleSearchPost({ post = {}, searchValue }) {
   const match = useHighlightMatches(searchValue);
-  const {} = generatePostURL();
   return (
     <div className="flex gap-6 py-2">
       <img
@@ -14,7 +13,7 @@ export default function SingleSearchPost({ post = {}, searchValue }) {
         alt={post?.title}
       />
       <Link to={generatePostURL(post)} className="mt-2">
-        <h3 className="text-slate-300 text-xl font-bold">
+        <h3 className="dark:text-slate-300 text-xl font-bold">
           {match(post?.title)}
         </h3>
         <p className="mb-6 text-sm text-slate-500 mt-1 tr line-clamp-3">

@@ -59,6 +59,7 @@ function AddPost() {
         }
       });
     });
+
     return () => subscription.unsubscribe();
   }, [watch]);
 
@@ -66,7 +67,9 @@ function AddPost() {
     const formData = new FormData();
     // append image
     for (const file of data.thumbnail) {
-      formData.append("thumbnail", file);
+      if (typeof file === "object") {
+        formData.append("thumbnail", file);
+      }
     }
     // append content
     formData.append("title", data.title);
@@ -85,15 +88,19 @@ function AddPost() {
           navigate(url);
         }
       } else {
-        const res = await api.post("/blogs", formData);
+        if (typeof data.thumbnail === "object") {
+          const res = await api.post("/blogs", formData);
 
-        if (res.status === 201) {
-          dispatch({
-            type: actions.post.DATA_CREATED,
-            data: res.data,
-          });
-          const url = generatePostURL(res.data.blog);
-          navigate(url);
+          if (res.status === 201) {
+            dispatch({
+              type: actions.post.DATA_CREATED,
+              data: res.data,
+            });
+            const url = generatePostURL(res.data.blog);
+            navigate(url);
+          }
+        } else {
+          setError("thumbnail", { message: "Thumbnail is required" });
         }
       }
     } catch (error) {

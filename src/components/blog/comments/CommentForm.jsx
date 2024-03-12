@@ -40,7 +40,7 @@ export default function CommentForm({ postId }) {
       <AuthorImage author={user} />
       <div className="w-full">
         <textarea
-          className={`w-full bg-[#030317] border border-slate-500 text-slate-300 p-4 rounded-md focus:outline-none ${
+          className={`w-full dark:bg-[#030317] border border-slate-500 dark:text-slate-300 p-4 rounded-md focus:outline-none ${
             error ? "ring-1 ring-red-500" : ""
           }`}
           placeholder="Write a comment"

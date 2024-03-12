@@ -3,19 +3,26 @@ import LwsLogo from "../../assets/logo.svg";
 export default function Footer() {
   const currentYear = new Date().getFullYear();
   return (
-    <footer className="my-4 bg-[#030317] w-full">
+    <footer className=" h-20 flex-center dark:bg-[#030317] w-full">
       <div className="container mx-auto flex items-center justify-between">
         <a href="/">
-          <img className="w-28" src={LwsLogo} alt="lws" />
+          <img className="w-32 dark:inline hidden" src={LwsLogo} alt="lws" />
+          <img
+            className="w-32 dark:hidden"
+            src={
+              "https://learnwithsumit.com/_next/static/media/lws-logo-light.ae7b3c3a.svg"
+            }
+            alt="lws"
+          />
         </a>
         <div className="flex gap-10">
-          <p className="text-xs mt-2">
+          <p className="text-xs text-black dark:text-gray-400 mt-2">
             Copyright © {currentYear} Learn with Sumit. All rights reserved.
           </p>
           <ul className="flex items-center space-x-5">
             <li className="text-center">
               <a
-                className="text-white/50 hover:text-white transition-all duration-200"
+                className="text-blue-400/70 hover:text-blue-500 transition-all duration-200"
                 href="#"
               >
                 <svg
@@ -33,7 +40,7 @@ export default function Footer() {
             </li>
             <li className="text-center">
               <a
-                className="text-white/50 hover:text-white transition-all duration-200"
+                className="text-[#833AB4] hover:text-[#E1306C] transition-all duration-200"
                 href="#"
               >
                 <svg
@@ -62,7 +69,7 @@ export default function Footer() {
             </li>
             <li className="text-center">
               <a
-                className="text-white/50 hover:text-white transition-all duration-200"
+                className="text-[#1DA1F2]/70 hover:text-[#1DB1F2] transition-all duration-200"
                 href="#"
               >
                 <svg
@@ -82,7 +89,7 @@ export default function Footer() {
             </li>
             <li className="text-center">
               <a
-                className="text-white/50 hover:text-white transition-all duration-200"
+                className="text-[#E60023]/50 hover:text-[#E61023] transition-all duration-200"
                 href="#"
               >
                 <svg
@@ -101,7 +108,7 @@ export default function Footer() {
             </li>
             <li className="text-center">
               <a
-                className="text-white/50 hover:text-white transition-all duration-200"
+                className="text-[#FF0000]/50 hover:text-[#FF0000] transition-all duration-200"
                 href="#"
               >
                 <svg

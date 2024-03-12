@@ -51,7 +51,7 @@ export default function BlogForm({
           type="file"
           accept="image/*"
           className="hidden"
-          {...register("thumbnail", { required: "thumbnail is required" })}
+          {...register("thumbnail")}
         />
         {errors.thumbnail && (
           <div className="px-2 text-rose-400 text-sm">

@@ -5,7 +5,10 @@ export function useHighlightMatches(searchValue) {
     const parts = text.split(regex);
     return parts.map((part, index) =>
       regex.test(part) ? (
-        <mark key={index} className="bg-blue-900 text-inherit">
+        <mark
+          key={index}
+          className="dark:bg-blue-900 bg-green-400 text-inherit"
+        >
           {part}
         </mark>
       ) : (

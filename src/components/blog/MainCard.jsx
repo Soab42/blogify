@@ -9,7 +9,7 @@ import { getBlogImage } from "../../utils.js/getBlogImage";
 import { isUser } from "../../utils.js/isUser";
 export default function MainCard({ data = {} }) {
   const { user } = useProfile();
-  const isMe = isUser(user, data.author.id);
+  const isMe = isUser(user, data?.author?.id);
   const ref = useRef(null);
   const isInView = useInView(ref, {
     once: true,
@@ -30,7 +30,9 @@ export default function MainCard({ data = {} }) {
       <img className="blog-thumb" src={getBlogImage(data.thumbnail)} alt="" />
       <div className="mt-2 relative">
         <Link to={generatePostURL(data)}>
-          <h3 className="text-slate-300 text-xl lg:text-2xl">{data.title}</h3>
+          <h3 className="dark:text-slate-300 text-xl lg:text-2xl">
+            {data.title}
+          </h3>
           <p className="mb-6 text-base text-slate-500 mt-1 line-clamp-2">
             {data.content}
           </p>

@@ -28,8 +28,8 @@ const ProfileProvider = ({ children }) => {
         });
       }
     };
-    auth?.user?.id && fetchProfile();
-  }, []);
+    fetchProfile();
+  }, [auth]);
 
   return (
     <ProfileContext.Provider value={{ state, dispatch }}>

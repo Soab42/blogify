@@ -16,7 +16,7 @@ export default function DemoBlog({ image, title, tags, content }) {
         {tags && <BlogTags tags={tags} />}
 
         <div
-          className="mx-auto w-full md:w-10/12 text-slate-300 text-base md:text-lg leading-8 py-2 text-justify"
+          className="mx-auto w-full md:w-10/12 dark:text-slate-300 text-base md:text-lg leading-8 py-2 text-justify"
           dangerouslySetInnerHTML={{ __html: content }}
         ></div>
       </div>

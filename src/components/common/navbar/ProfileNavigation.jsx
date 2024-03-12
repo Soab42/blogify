@@ -26,7 +26,7 @@ export default function ProfileNavigation({ user }) {
     <li className="flex items-center">
       <div className="w-full relative">
         <button
-          className="text-white ml-2 relative flex-center gap-2"
+          className="dark:text-white ml-2 relative flex-center gap-2"
           onClick={handleActive}
         >
           <AuthorImage author={user} />
@@ -66,7 +66,7 @@ export default function ProfileNavigation({ user }) {
     <li>
       <Link
         to="/login"
-        className="text-white/50 hover:text-white transition-all duration-200"
+        className="dark:text-white/50 dark:hover:text-white transition-all duration-200"
       >
         Login
       </Link>

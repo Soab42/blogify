@@ -6,7 +6,7 @@ import {
   useLayoutEffect,
   useState,
 } from "react";
-import CloseIcon from "../../assets/icons/close.svg";
+import CloseIcon from "../../assets/icons/close2.svg";
 import useActive from "../../hooks/useActive";
 import useAxios from "../../hooks/useAxios";
 import useDebounce from "../../hooks/useDebounce";
@@ -76,14 +76,14 @@ const Search = forwardRef((props, ref) => {
           exit="exit"
         >
           <motion.div
-            className="relative w-6/12 mx-auto bg-slate-900 p-4 border border-slate-600/50 rounded-lg shadow-lg shadow-slate-400/10"
+            className="relative w-6/12 mx-auto dark:bg-slate-900 bg-slate-100 p-4 border border-slate-600/50 rounded-lg shadow-lg shadow-slate-400/10"
             variants={searchChildVariants}
           >
             <SearchInput onChange={handleChange} />
 
             {/* <!-- Search Result --> */}
             <div className="">
-              <motion.h3 className="text-slate-400 font-bold mt-6">
+              <motion.h3 className="dark:text-slate-400 font-bold mt-6">
                 {searchResult?.length && !error && (
                   <span>
                     Search Results :{" "}

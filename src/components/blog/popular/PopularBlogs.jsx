@@ -38,7 +38,7 @@ export default function PopularBlogs() {
 
   return (
     <div className="sidebar-card">
-      <h3 className="text-slate-300 text-xl lg:text-2xl font-semibold">
+      <h3 className="dark:text-slate-300 text-xl lg:text-2xl font-semibold">
         Most Popular 👍️
       </h3>
       {content}

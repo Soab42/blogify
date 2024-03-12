@@ -39,10 +39,6 @@ export default function ActionDot({ post = {} }) {
               Edit
             </button>
             <DeleteButton postId={post?.id} />
-            {/* <button className="action-menu-item hover:text-red-500">
-              <img src={DeleteSvg} alt="Delete" />
-              Delete
-            </button> */}
           </motion.div>
         )}
       </AnimatePresence>

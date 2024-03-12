@@ -1,6 +1,4 @@
-import React from "react";
 import { useAvatar } from "../../hooks/useAvatar";
-import { useProfile } from "../../hooks/useProfile";
 
 export default function AuthorImage({ author = {} }) {
   const { avatarURL } = useAvatar(author);

@@ -15,7 +15,7 @@ export default function SearchInput({ onChange }) {
 
   return (
     <div className="">
-      <h3 className="font-bold text-xl pl-2 text-slate-400 my-2">
+      <h3 className="font-bold text-xl pl-2 dark:text-slate-400 my-2">
         Search for Your Desire Blogs
       </h3>
       <div className="relative">
@@ -32,7 +32,7 @@ export default function SearchInput({ onChange }) {
           onChange={onChange}
           type="text"
           ref={searchRef}
-          className="w-full bg-transparent p-2 text-base text-white outline-none border-none rounded-lg focus:ring focus:ring-indigo-600 ring-1 h-12 focus:backdrop-blur-xl"
+          className="w-full bg-transparent p-2 text-base dark:text-white outline-none border-none rounded-lg focus:ring focus:ring-indigo-600 ring-1 h-12 focus:backdrop-blur-xl"
         />
       </div>
     </div>

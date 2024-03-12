@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom";
 
 export default function Layout() {
   return (
-    <div className="bg-[#030317] text-white flex flex-col items-center w-full  relative">
+    <div className="dark:bg-[#030317] dark:text-white/80  text-black flex flex-col items-center w-full  relative duration-500">
       <Nav />
       <main className="w-full flex justify-center items-center">
         <Outlet />
