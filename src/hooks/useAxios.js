@@ -3,10 +3,11 @@ import { useEffect } from "react";
 import axios from "axios";
 import { api } from "../axios";
 import { useAuth } from "./useAuth";
+import useSessionCookie from "./useSessionCookie";
 
 const useAxios = () => {
   const { auth, setAuth } = useAuth();
-  // console.log("auth", auth);
+  const { removeCookie } = useSessionCookie("auth");
   useEffect(() => {
     // Add a request interceptor
     const requestIntercept = api.interceptors.request.use(
@@ -25,10 +26,6 @@ const useAxios = () => {
       (response) => response,
       async (error) => {
         const originalRequest = error.config;
-
-        // If the error status is 401 and there is no originalRequest._retry flag,
-        // it means the token has expired and we need to refresh it
-
         if (error?.response?.status === 403 && !originalRequest._retry) {
           originalRequest._retry = true;
 
@@ -47,6 +44,12 @@ const useAxios = () => {
             return axios(originalRequest);
           } catch (error) {
             throw error;
+          }
+        }
+        if (error?.response?.status === 500) {
+          if (error.response.data.error === "jwt expired") {
+            removeCookie("auth");
+            setAuth(null);
           }
         }
         return Promise.reject(error);

@@ -8,21 +8,23 @@ import useAxios from "../../hooks/useAxios";
 import { useProfile } from "../../hooks/useProfile";
 import { isUser } from "../../utils.js/isUser";
 import { toast } from "react-toastify";
+import { useAuth } from "../../hooks/useAuth";
 
 export default function Bio({ info = {} }) {
   const queryClient = useQueryClient();
-  const { user, dispatch } = useProfile(info);
+  const { user, dispatch } = useProfile();
   const [isEdit, setIsEdit] = useActive();
+  const { auth } = useAuth();
   const { api } = useAxios();
   const [bio, setBio] = useState(user?.bio);
-  const isMe = isUser(user, info?.id);
+  const isMe = isUser(auth?.user, info?.id);
   const handleEdit = async () => {
     const updatedUser = { ...user, bio };
     try {
       const res = await api.patch("/profile", { bio });
       if (res.status == 200) {
         queryClient.invalidateQueries("profile", info?.id);
-
+        toast.success("Bio updated successfully");
         dispatch({
           type: actions.profile.USER_DATA_EDITED,
           data: updatedUser,
@@ -30,8 +32,11 @@ export default function Bio({ info = {} }) {
       }
       setIsEdit();
     } catch (error) {
-      console.log("error updating bio", error.message);
-      toast(error.message);
+      toast.error(
+        "error updating bio",
+        error.message || error.response.message
+      );
+      setIsEdit();
       dispatch({
         type: actions.profile.DATA_FETCH_ERROR,
         error: error.message,

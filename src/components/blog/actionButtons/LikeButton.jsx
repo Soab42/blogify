@@ -21,7 +21,7 @@ export default function LikeButton({ likes, postId }) {
       try {
         mutation.mutate("like");
       } catch (error) {
-        console.log("error", error);
+        toast.error(error?.message);
       }
     }
   };

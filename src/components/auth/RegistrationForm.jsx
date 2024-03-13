@@ -16,8 +16,6 @@ export default function RegistrationForm() {
   } = useForm();
   const password = watch("password", "");
   const onSubmit = async (formData) => {
-    console.log(formData);
-
     try {
       let response = await axios.post(
         `${import.meta.env.VITE_SERVER_BASE_URL}/auth/register`,

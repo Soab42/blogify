@@ -1,13 +1,13 @@
 import AuthorImage from "../../common/AuthorImage";
-import { useProfile } from "../../../hooks/useProfile";
 import { useState } from "react";
 import useAxios from "../../../hooks/useAxios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useAuth } from "../../../hooks/useAuth";
 
 export default function CommentForm({ postId }) {
   const [content, setContent] = useState("");
   const [error, setError] = useState();
-  const { user } = useProfile();
+  const { auth } = useAuth();
   const { api } = useAxios();
   const queryClient = useQueryClient();
 
@@ -20,7 +20,6 @@ export default function CommentForm({ postId }) {
         throw new Error("Comment content is required");
       }
     } catch (error) {
-      console.log("error", error.message);
       setError(error.message);
     }
   };
@@ -33,11 +32,14 @@ export default function CommentForm({ postId }) {
     onSuccess: () => {
       queryClient.invalidateQueries("blogs", postId);
     },
+    onError: (error) => {
+      console.error(error);
+    },
   });
 
   return (
     <div className="flex items -center space-x-4">
-      <AuthorImage author={user} />
+      <AuthorImage author={auth?.user} />
       <div className="w-full">
         <textarea
           className={`w-full dark:bg-[#030317] border border-slate-500 dark:text-slate-300 p-4 rounded-md focus:outline-none ${

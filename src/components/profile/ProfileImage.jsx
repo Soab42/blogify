@@ -8,11 +8,12 @@ import useActive from "../../hooks/useActive";
 import { isUser } from "../../utils.js/isUser";
 import { motion } from "framer-motion";
 export default function ProfileImage({ author }) {
-  const { user, dispatch } = useProfile();
+  const { auth } = useAuth();
+  const { dispatch } = useProfile();
   const { api } = useAxios();
   const fileUploaderRef = useRef();
   const [loading, setLoading] = useActive();
-  const isME = isUser(user, author?.id);
+  const isME = isUser(auth?.user, author?.id);
   const handleImageUpload = (event) => {
     event.preventDefault();
     fileUploaderRef.current.addEventListener("change", updateImageDisplay);
@@ -30,13 +31,14 @@ export default function ProfileImage({ author }) {
       const response = await api.post("/profile/avatar", formData);
       if (response.status === 200) {
         setLoading(false);
-
+        toast.success("Image uploaded successfully");
         dispatch({
           type: actions.profile.IMAGE_UPDATED,
           data: response.data.user.avatar,
         });
       }
     } catch (error) {
+      toast.error(error);
       setLoading(false);
       dispatch({
         type: actions.profile.DATA_FETCH_ERROR,
@@ -46,7 +48,7 @@ export default function ProfileImage({ author }) {
   };
   return (
     <div className="relative mb-8 max-h-[180px] max-w-[180px] h-[120px] w-[120px] rounded-full lg:mb-11 lg:max-h-[218px] lg:max-w-[218px]">
-      <div className="w-full h-full text-white grid place-items-center text-5xl rounded-full bg-green-600">
+      <div className="w-full h-full text-white grid place-items-center text-5xl rounded-full">
         <AuthorProfileImage author={author} loading={loading} />
       </div>
 
@@ -69,6 +71,8 @@ export default function ProfileImage({ author }) {
 import { useState, useEffect } from "react";
 import { generateColor } from "../../utils.js/generateColor";
 import ImageLoader from "../loader/ImageLoader";
+import { useAuth } from "../../hooks/useAuth";
+import { toast } from "react-toastify";
 
 function AuthorProfileImage({ author = {}, loading }) {
   const { avatarURL } = useAvatar(author);
@@ -90,7 +94,7 @@ function AuthorProfileImage({ author = {}, loading }) {
           <img
             src={avatarURL}
             alt={author?.firstName?.slice(0, 1)}
-            className="object-cover w-full"
+            className=" h-full w-full"
           />
         ) : (
           <span

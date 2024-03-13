@@ -1,11 +1,11 @@
-import React from "react";
-import useAxios from "../../../hooks/useAxios";
-import { isPresentId } from "../../../utils.js/isPresentId";
+import { motion } from "framer-motion";
+import { toast } from "react-toastify";
+import { actions } from "../../../actions";
 import FavIconFilled from "../../../assets/icons/heart-filled.svg";
 import FavIcon from "../../../assets/icons/heart.svg";
+import useAxios from "../../../hooks/useAxios";
 import { useProfile } from "../../../hooks/useProfile";
-import { actions } from "../../../actions";
-import { motion } from "framer-motion";
+import { isPresentId } from "../../../utils.js/isPresentId";
 export default function FavButton({ postId }) {
   const { api } = useAxios();
   const { user, dispatch } = useProfile();
@@ -15,10 +15,14 @@ export default function FavButton({ postId }) {
   const handleFavorite = async () => {
     try {
       const res = await api.patch(`/blogs/${postId}/favourite`);
-      // console.log(res);
+      toast.success(
+        `${res.data.title} ${
+          res.data.isFavourite ? "added to" : "removed from"
+        } favorites`
+      );
       dispatch({ type: actions.profile.FAV_UPDATED, data: res.data });
     } catch (error) {
-      console.log("error", error);
+      toast.error(error?.message);
     }
   };
   return (

@@ -1,11 +1,11 @@
-import FormInput from "../common/FormInput";
-import { Link, useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
 import { motion } from "framer-motion";
-import { validateEmail } from "../../utils.js/validateEmail";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
 import { api } from "../../axios";
 import { useAuth } from "../../hooks/useAuth";
 import useSessionCookie from "../../hooks/useSessionCookie";
+import { validateEmail } from "../../utils.js/validateEmail";
+import FormInput from "../common/FormInput";
 
 export default function LoginForm() {
   const { setAuth } = useAuth();
@@ -20,7 +20,6 @@ export default function LoginForm() {
   } = useForm();
 
   const onSubmit = async (data) => {
-    // console.log("data", data);
     if (!validateEmail(data?.email)) {
       setError("email", {
         message: "Email is not valid",
@@ -44,12 +43,11 @@ export default function LoginForm() {
       } catch (error) {
         console.error(error?.response?.data?.error);
         setError("root.random", {
-          message: error?.response?.data?.error,
+          message: error?.response?.data?.error || error.message,
         });
       }
     }
   };
-  // console.log(errors);
 
   return (
     <motion.form

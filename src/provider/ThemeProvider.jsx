@@ -9,7 +9,6 @@ const ThemeProvider = ({ children }) => {
     const systemTheme = window.matchMedia(
       "(prefers-color-scheme: dark)"
     ).matches;
-
     if (userTheme) {
       setTheme(userTheme);
     } else if (systemTheme) {
@@ -26,7 +25,7 @@ const ThemeProvider = ({ children }) => {
       html.classList.add("dark"); // Add the "dark" class
       // console.log("dark");
     } else {
-      localStorage.setItem("theme", theme);
+      localStorage.setItem("theme", "dark");
       html.classList.remove("dark"); // Remove the "dark" class
     }
   }, [theme]);

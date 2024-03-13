@@ -30,6 +30,7 @@ export default function ActionDot({ post = {} }) {
             initial="initial"
             animate="animate"
             exit="exit"
+            onClick={() => handleActive()}
           >
             <button
               className="action-menu-item hover:text-green-400"
@@ -38,7 +39,7 @@ export default function ActionDot({ post = {} }) {
               <img src={EditSvg} alt="Edit" />
               Edit
             </button>
-            <DeleteButton postId={post?.id} />
+            <DeleteButton postId={post?.id} onclick={handleActive} />
           </motion.div>
         )}
       </AnimatePresence>

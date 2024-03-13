@@ -1,10 +1,10 @@
 import Comment from "./Comment";
 import CommentForm from "./CommentForm";
-import { useProfile } from "../../../hooks/useProfile";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../../hooks/useAuth";
 
 export default function Comments({ comments, postId }) {
-  const { user } = useProfile();
+  const { auth } = useAuth();
   // console.log(comments);
   return (
     <section id="comments" className="relative">
@@ -14,13 +14,13 @@ export default function Comments({ comments, postId }) {
           {comments && comments.length > 0 && <span>({comments.length})</span>}
         </h2>
 
-        {user && <CommentForm postId={postId} />}
+        {auth?.user && <CommentForm postId={postId} />}
 
         {comments?.map((comment) => (
           <Comment key={comment.id} comment={comment} postId={postId} />
         ))}
 
-        {!user && (
+        {!auth?.user && (
           <p className="p-4 bg-slate-500/20 text-center rounded-lg">
             To add a comment, please{" "}
             <Link className="font-bold underline text-sky-400" to={"/login"}>

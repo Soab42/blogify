@@ -5,7 +5,7 @@ export default function BlogPostLoader() {
     <motion.div>
       <section className="xl:w-[80vw]">
         <div className="container text-center py-8">
-          <div className="h-10 w-4/5 rounded-md m-auto bg-white/10 animate-pulse"></div>
+          <div className="h-10 w-4/5 rounded-md m-auto dark:bg-white/10 bg-black/10 animate-pulse"></div>
         </div>
         <motion.div
           className="flex justify-center items-center gap-2"
@@ -40,26 +40,26 @@ export default function BlogPostLoader() {
         </motion.div>
 
         <div className="container space-y-2 text-center py-8 animate-pulse">
-          <div className="h-2 w-4/5 rounded-md m-auto bg-white/20"></div>
-          <div className="h-2 w-4/5 rounded-md m-auto bg-white/20"></div>
-          <div className="h-2 w-4/5 rounded-md m-auto bg-white/20"></div>
+          <div className="h-2 w-4/5 rounded-md m-auto dark:bg-white/20 bg-black/20"></div>
+          <div className="h-2 w-4/5 rounded-md m-auto dark:bg-white/20 bg-black/20"></div>
+          <div className="h-2 w-4/5 rounded-md m-auto dark:bg-white/20 bg-black/20"></div>
           <br />
-          <div className="h-2 w-4/5 rounded-md m-auto bg-white/20"></div>
-          <div className="h-2 w-4/5 rounded-md m-auto bg-white/20"></div>
-          <div className="h-2 w-4/5 rounded-md m-auto bg-white/20"></div>
-          <div className="h-2 w-4/5 rounded-md m-auto bg-white/20"></div>
-          <div className="h-2 w-4/5 rounded-md m-auto bg-white/20"></div>
+          <div className="h-2 w-4/5 rounded-md m-auto dark:bg-white/20 bg-black/20"></div>
+          <div className="h-2 w-4/5 rounded-md m-auto dark:bg-white/20 bg-black/20"></div>
+          <div className="h-2 w-4/5 rounded-md m-auto dark:bg-white/20 bg-black/20"></div>
+          <div className="h-2 w-4/5 rounded-md m-auto dark:bg-white/20 bg-black/20"></div>
+          <div className="h-2 w-4/5 rounded-md m-auto dark:bg-white/20 bg-black/20"></div>
           <br />
-          <div className="h-2 w-4/5 rounded-md m-auto bg-white/20"></div>
-          <div className="h-2 w-4/5 rounded-md m-auto bg-white/20"></div>
-          <div className="h-2 w-4/5 rounded-md m-auto bg-white/20"></div>
-          <div className="h-2 w-4/5 rounded-md m-auto bg-white/20"></div>
+          <div className="h-2 w-4/5 rounded-md m-auto dark:bg-white/20 bg-black/20"></div>
+          <div className="h-2 w-4/5 rounded-md m-auto dark:bg-white/20 bg-black/20"></div>
+          <div className="h-2 w-4/5 rounded-md m-auto dark:bg-white/20 bg-black/20"></div>
+          <div className="h-2 w-4/5 rounded-md m-auto dark:bg-white/20 bg-black/20"></div>
           <br />
-          <div className="h-2 w-4/5 rounded-md m-auto bg-white/20"></div>
-          <div className="h-2 w-4/5 rounded-md m-auto bg-white/20"></div>
-          <div className="h-2 w-4/5 rounded-md m-auto bg-white/20"></div>
-          <div className="h-2 w-4/5 rounded-md m-auto bg-white/20"></div>
-          <div className="h-2 w-4/5 rounded-md m-auto bg-white/20"></div>
+          <div className="h-2 w-4/5 rounded-md m-auto dark:bg-white/20 bg-black/20"></div>
+          <div className="h-2 w-4/5 rounded-md m-auto dark:bg-white/20 bg-black/20"></div>
+          <div className="h-2 w-4/5 rounded-md m-auto dark:bg-white/20 bg-black/20"></div>
+          <div className="h-2 w-4/5 rounded-md m-auto dark:bg-white/20 bg-black/20"></div>
+          <div className="h-2 w-4/5 rounded-md m-auto dark:bg-white/20 bg-black/20"></div>
         </div>
       </section>
     </motion.div>

@@ -5,7 +5,6 @@ import useAxios from "../../hooks/useAxios";
 import useDynamicTitle from "../../hooks/useDynamicTitle";
 import useIntersectionObserver from "../../hooks/useIntersectionObserver";
 import { usePost } from "../../hooks/usePost";
-import { useProfile } from "../../hooks/useProfile";
 import { pageVariants } from "../animated/variants";
 import MainCard from "../blog/MainCard";
 import FavouriteBlogs from "../blog/favourite/FavouriteBlogs";
@@ -13,6 +12,7 @@ import PopularBlogs from "../blog/popular/PopularBlogs";
 import MainCardLoader, { CardLoader } from "../loader/MainCardLoader";
 import Error from "../common/Error";
 import NoDataFound from "../common/NoDataFound";
+import { useAuth } from "../../hooks/useAuth";
 export default function Home() {
   const [ref, isVisible] = useIntersectionObserver({
     root: null,
@@ -21,7 +21,7 @@ export default function Home() {
   });
   const [page, setPage] = useState(1);
   const { state, dispatch } = usePost();
-  const { user } = useProfile();
+  const { auth } = useAuth();
   const { api } = useAxios();
 
   useEffect(() => {
@@ -93,7 +93,7 @@ export default function Home() {
 
         <div className="md:col-span-2 h-full w-full space-y-5 relative">
           <PopularBlogs />
-          {user && <FavouriteBlogs />}
+          {auth?.user && <FavouriteBlogs />}
         </div>
       </div>
     </motion.div>

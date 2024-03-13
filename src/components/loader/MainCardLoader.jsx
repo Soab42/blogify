@@ -30,20 +30,20 @@ export function CardLoader({ index }) {
         className="blog-card"
         style={{ marginBottom: "2px" }}
       >
-        <div className="blog-thumb bg-slate-400/10" />
+        <div className="blog-thumb bg-black/10 dark:bg-slate-400/10" />
         <div className="mt-2 relative">
           <h3 className="h-10 rounded-lg bg-indigo-600/10"></h3>
           <div className="mb-6 mt-3 space-y-2">
-            <p className="h-2 bg-slate-200/10"></p>
-            <p className="h-2 bg-slate-200/10"></p>
-            <p className="h-2 bg-slate-200/10"></p>
+            <p className="h-2 bg-black/10 dark:bg-slate-200/10"></p>
+            <p className="h-2 bg-black/10 dark:bg-slate-200/10"></p>
+            <p className="h-2 bg-black/10 dark:bg-slate-200/10"></p>
           </div>
 
           <div className="flex w-full">
             <div className="w-12 h-10 bg-pink-400/20 rounded-full"></div>
             <div className="flex justify-between items-center w-full pl-2">
               <div className="flex-center-col gap-2">
-                <p className="w-36 h-3 rounded-md bg-slate-200/10"></p>
+                <p className="w-36 h-3 rounded-md bg-black/10 dark:bg-slate-200/10"></p>
                 <p className="w-36 h-2 rounded-full bg-slate-200/20"></p>
               </div>
               <div className="flex gap-1">

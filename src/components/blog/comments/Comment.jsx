@@ -6,12 +6,12 @@ import useActive from "../../../hooks/useActive";
 import deleteIcon from "../../../assets/icons/delete.svg";
 import useAxios from "../../../hooks/useAxios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useProfile } from "../../../hooks/useProfile";
 import { isUser } from "../../../utils.js/isUser";
+import { useAuth } from "../../../hooks/useAuth";
 export default function Comment({ comment, postId }) {
   const { author, content, id } = comment;
-  const { user } = useProfile();
-  const isMe = isUser(user, author?.id);
+  const { auth } = useAuth();
+  const isMe = isUser(auth?.user, author?.id);
   const [active, setIsActive] = useActive();
   const buttonVariant = {
     hidden: {
