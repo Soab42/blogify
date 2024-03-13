@@ -33,7 +33,6 @@ export default function LoginForm() {
           if (token) {
             const authToken = token.accessToken;
             const refreshToken = token.refreshToken;
-            console.log(`Login time auth token: ${authToken}`);
             setAuth({ user, authToken, refreshToken });
             setCookie(
               "auth",
@@ -43,9 +42,9 @@ export default function LoginForm() {
           }
         }
       } catch (error) {
-        console.error(error.response.data.error);
+        console.error(error?.response?.data?.error);
         setError("root.random", {
-          message: error.response.data.error,
+          message: error?.response?.data?.error,
         });
       }
     }

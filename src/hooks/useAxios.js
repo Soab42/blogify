@@ -29,7 +29,7 @@ const useAxios = () => {
         // If the error status is 401 and there is no originalRequest._retry flag,
         // it means the token has expired and we need to refresh it
 
-        if (error.response.status === 403 && !originalRequest._retry) {
+        if (error?.response?.status === 403 && !originalRequest._retry) {
           originalRequest._retry = true;
 
           try {
@@ -40,7 +40,6 @@ const useAxios = () => {
             );
             const { accessToken } = response.data;
 
-            console.log(`New Token: ${accessToken}`);
             setAuth({ ...auth, authToken: accessToken });
 
             // Retry the original request with the new token
@@ -50,7 +49,6 @@ const useAxios = () => {
             throw error;
           }
         }
-
         return Promise.reject(error);
       }
     );
