@@ -12,6 +12,7 @@ import FavouriteBlogs from "../blog/favourite/FavouriteBlogs";
 import PopularBlogs from "../blog/popular/PopularBlogs";
 import MainCardLoader, { CardLoader } from "../loader/MainCardLoader";
 import Error from "../common/Error";
+import NoDataFound from "../common/NoDataFound";
 export default function Home() {
   const [ref, isVisible] = useIntersectionObserver({
     root: null,
@@ -55,7 +56,7 @@ export default function Home() {
   } else if (state?.error) {
     content = <Error error={state?.error} />;
   } else if (state.posts.length === 0) {
-    content = ;
+    content = <NoDataFound />;
   } else {
     content = (
       <>
