@@ -11,7 +11,7 @@ export default function ProfileInfo({ info }) {
 
       {/* <!-- name , email --> */}
       <div>
-        <h3 className="text-2xl font-semibold text-white lg:text-[28px]">
+        <h3 className="text-2xl font-semibold dark:text-white lg:text-[28px]">
           {getName(info)}
         </h3>
         <p className="leading-[231%] lg:text-lg">{info?.email}</p>

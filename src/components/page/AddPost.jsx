@@ -7,14 +7,17 @@ import useDynamicTitle from "../../hooks/useDynamicTitle";
 import { usePost } from "../../hooks/usePost";
 import { useEffect, useState } from "react";
 import useAxios from "../../hooks/useAxios";
+import useActive from "../../hooks/useActive";
 import { actions } from "../../actions";
 import { useLocation, useNavigate } from "react-router-dom";
 import { generatePostURL } from "../../utils.js/generateURL";
 import { getLocalImageURL } from "../../utils.js/getLocalImageUrl";
 import { getBlogImage } from "../../utils.js/getBlogImage";
 import { flushSync } from "react-dom";
+import LoadingLoader from "../loader/LoadingBar";
 
 function AddPost() {
+  const [loading, setLoading] = useActive();
   const location = useLocation();
   const isEdit = location.pathname.slice(1) === "update";
   const navigate = useNavigate();
@@ -64,6 +67,9 @@ function AddPost() {
   }, [watch]);
 
   const onSubmit = async (data) => {
+    flushSync(() => {
+      setLoading(true);
+    });
     const formData = new FormData();
     // append image
     for (const file of data.thumbnail) {
@@ -86,6 +92,7 @@ function AddPost() {
           });
           const url = generatePostURL(res.data);
           navigate(url);
+          setLoading(false);
         }
       } else {
         if (typeof data.thumbnail === "object") {
@@ -98,13 +105,17 @@ function AddPost() {
             });
             const url = generatePostURL(res.data.blog);
             navigate(url);
+            setLoading(false);
           }
         } else {
           setError("thumbnail", { message: "Thumbnail is required" });
+          setLoading(false);
         }
       }
     } catch (error) {
       console.error(error.response.data.error);
+      setLoading(false);
+
       setError("root.random", {
         message: error.response.data.error,
       });
@@ -118,7 +129,12 @@ function AddPost() {
       animate="animate"
       exit="exit"
     >
-      <section className="min-h-[80vh]">
+      <section
+        className={`min-h-[80vh] ${
+          loading ? "animate-pulse backdrop-blur-sm relative" : ""
+        }`}
+      >
+        {loading && <LoadingLoader />}
         <div className=" text-center w-full text-3xl font-bold tracking-widest shadow-sm shadow-blue-400/20 pb-2 rounded-xl">
           {!isEdit ? "Create New" : "Update Blog"} Post
         </div>

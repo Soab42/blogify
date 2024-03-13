@@ -6,7 +6,7 @@ import BlogDetails from "../blog/BlogDetails";
 import FloatingAction from "../blog/actionButtons/FloatingAction";
 import Comments from "../blog/comments/Comments";
 import BlogPostLoader from "../loader/BlogPostLoader";
-import { usePost } from "../../hooks/usePost";
+import Error from "../common/Error";
 
 const retrievePost = async ({ queryKey }) => {
   const response = await axios.get(
@@ -33,7 +33,7 @@ export default function SingleBlog() {
   if (isLoading) {
     content = <BlogPostLoader />;
   } else if (error) {
-    content = <div>{error.message}</div>;
+    content = <Error error={error.message} />;
   } else {
     content = (
       <>

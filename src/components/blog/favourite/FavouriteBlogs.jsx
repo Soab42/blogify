@@ -22,7 +22,9 @@ export default function FavouriteBlogs() {
   if (isLoading) {
     content = <FavCardLoader />;
   } else if (error) {
-    content = <div>something is error....</div>;
+    content = (
+      <div className="text-rose-400 h-96 flex-center">{error.message}</div>
+    );
   } else if (favPost?.blogs.length === 0) {
     content = <div>No Favourite Blogs Post Found</div>;
   } else {

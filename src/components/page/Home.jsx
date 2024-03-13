@@ -11,6 +11,7 @@ import MainCard from "../blog/MainCard";
 import FavouriteBlogs from "../blog/favourite/FavouriteBlogs";
 import PopularBlogs from "../blog/popular/PopularBlogs";
 import MainCardLoader, { CardLoader } from "../loader/MainCardLoader";
+import Error from "../common/Error";
 export default function Home() {
   const [ref, isVisible] = useIntersectionObserver({
     root: null,
@@ -52,9 +53,9 @@ export default function Home() {
   if (state?.loading) {
     content = <MainCardLoader />;
   } else if (state?.error) {
-    content = <span>{state.error}</span>;
+    content = <Error error={state?.error} />;
   } else if (state.posts.length === 0) {
-    content = <span>No Post Found</span>;
+    content = ;
   } else {
     content = (
       <>
@@ -78,7 +79,6 @@ export default function Home() {
       </>
     );
   }
-  console.log(user);
   return (
     <motion.div
       className="container"

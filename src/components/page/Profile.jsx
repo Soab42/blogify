@@ -11,10 +11,11 @@ import { getName } from "../../utils.js/getName";
 import { isUser } from "../../utils.js/isUser";
 import { pageVariants } from "../animated/variants";
 import ProfileLoader from "../loader/ProfileLoader";
+import Error from "../common/Error";
 
 const retrieveProfile = async ({ queryKey }) => {
   const response = await axios.get(
-    `http://localhost:3000/${queryKey[0]}/${queryKey[1]}`
+    `${import.meta.env.VITE_SERVER_BASE_URL}/${queryKey[0]}/${queryKey[1]}`
   );
   return response.data;
 };
@@ -37,13 +38,11 @@ export default function Profile() {
   if (isLoading) {
     content = <ProfileLoader />;
   } else if (error) {
-    content = <div>{error.message}</div>;
+    content = <Error error={error.message} />;
   } else {
     content = (
       <div className="container">
-        {/* <!-- profile info --> */}
         <ProfileInfo info={profile} />
-        {/* <!-- end profile info --> */}
 
         <h4 className="mt-6 text-xl lg:mt-8 lg:text-2xl">
           {isME ? "Your" : getName(profile)} Blogs
@@ -53,8 +52,6 @@ export default function Profile() {
           {profile?.blogs.map((data) => (
             <MainCard data={data} key={data.id} />
           ))}
-          {/* <MainCard /> */}
-          {/* <!-- Blog Card End --> */}
         </div>
       </div>
     );

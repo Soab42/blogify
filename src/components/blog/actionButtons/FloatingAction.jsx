@@ -38,14 +38,16 @@ export default function FloatingAction({ post = {} }) {
         >
           <LikeButton likes={likes} postId={id} />
           {showLoginButton && (
-            <img
-              src={LoginButton}
-              alt="login"
-              width={45}
-              height={20}
-              className="dark:bg-slate-100 rounded"
-              style={{ position: "absolute", top: "-4px" }}
-            />
+            <Link to={"/login"}>
+              <img
+                src={LoginButton}
+                alt="login"
+                width={45}
+                height={20}
+                className="dark:bg-slate-100 rounded"
+                style={{ position: "absolute", top: "-4px" }}
+              />
+            </Link>
           )}
         </div>
         <div

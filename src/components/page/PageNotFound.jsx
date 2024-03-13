@@ -1,12 +1,13 @@
 import React from "react";
 import { motion } from "framer-motion";
+import deadWomen from "../../assets/icons/elephent.png";
+import Tree from "../../assets/icons/tree.png";
 export default function PageNotFound() {
   const text = "404 | Page Not Found";
-  const splitText = text.split("");
   return (
-    <div className="h-[79vh] relative flex justify-center items-center flex-col overflow-hidden">
-      <div className="text-3xl font-thin  z-10 backdrop-blur-2xl w-[80vw] flex justify-between px-96 items-center h-screen">
-        {splitText.map((t) => (
+    <div className="h-[79vh] relative flex justify-center items-center flex-col overflow-hidden relative">
+      <div className="font-thin  z-10 backdrop-blur-2xl  flex justify-between px-96 items-center h-screen">
+        {/* {splitText.map((t) => (
           <motion.span
             className="duration-1000"
             // initial={{ rotate: 0 }}
@@ -30,7 +31,24 @@ export default function PageNotFound() {
           >
             {t}
           </motion.span>
-        ))}
+        ))} */}
+        <motion.img
+          // animate={{
+          //   x: [Math.random() * 10000, Math.random(), Math.random() * -100],
+          // }}
+          transition={{ delay: 1, repeat: Infinity }}
+          src={Tree}
+          width={500}
+          // className="animate-ping"
+        />
+        <div>
+          <motion.img
+            transition={{ delay: 1, repeat: Infinity }}
+            src={deadWomen}
+            // className="animate-ping"
+          />
+          <p className="absolute text-7xl top-[75%] ">404 | Page Not Found!</p>
+        </div>
       </div>
       <motion.div
         className="absolute top-0 bg-gradient-to-br shadow-pink/10-400  from-yellow-300 via-red-400 via-40%  to-sky-500 text-center  shadow-2xl shadow-pink-400  size-[20rem] rounded-full z-0 "

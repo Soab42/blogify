@@ -10,6 +10,7 @@ import Registration from "../components/page/Registration";
 import SingleBlog from "../components/page/SingleBlog";
 import PrivateRoute from "./PrivateRoute";
 import PublicRoute from "./PublicRoute";
+
 export default function AnimatedRoute() {
   const location = useLocation();
   return (
@@ -19,6 +20,7 @@ export default function AnimatedRoute() {
           {/*for  General user */}
           <Route path="/*" element={<PageNotFound />} />
           <Route path="/" element={<Home />} />
+
           <Route path="/profile/:name" element={<Profile />} />
           <Route path="/blog/:title" element={<SingleBlog />} />
 

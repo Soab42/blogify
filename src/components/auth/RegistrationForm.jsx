@@ -54,7 +54,7 @@ export default function RegistrationForm() {
             type="text"
             id="firstName"
             name="firstName"
-            className="w-full xl:p-3 p-2 bg-[#030317] border border-white/20 rounded-md focus:outline-none focus:border-indigo-500"
+            className="w-full xl:p-3 p-2 dark:bg-[#030317] border border-white/20 rounded-md focus:outline-none focus:border-indigo-500"
           />
         </FormInput>
       </div>
@@ -65,7 +65,7 @@ export default function RegistrationForm() {
             type="text"
             id="lastName"
             name="lastName"
-            className="w-full xl:p-3 p-2 bg-[#030317] border border-white/20 rounded-md focus:outline-none focus:border-indigo-500"
+            className="w-full xl:p-3 p-2 dark:bg-[#030317] border border-white/20 rounded-md focus:outline-none focus:border-indigo-500"
           />
         </FormInput>
       </div>
@@ -82,7 +82,7 @@ export default function RegistrationForm() {
             type="email"
             id="email"
             name="email"
-            className="w-full xl:p-3 p-2 bg-[#030317] border border-white/20 rounded-md focus:outline-none focus:border-indigo-500"
+            className="w-full xl:p-3 p-2 dark:bg-[#030317] border border-white/20 rounded-md focus:outline-none focus:border-indigo-500"
           />
         </FormInput>
       </div>
@@ -99,7 +99,7 @@ export default function RegistrationForm() {
             type="password"
             id="password"
             name="password"
-            className="w-full xl:p-3 p-2 bg-[#030317] border border-white/20 rounded-md focus:outline-none focus:border-indigo-500"
+            className="w-full xl:p-3 p-2 dark:bg-[#030317] border border-white/20 rounded-md focus:outline-none focus:border-indigo-500"
           />
         </FormInput>
       </div>
@@ -114,7 +114,7 @@ export default function RegistrationForm() {
             type="password"
             id="cpassword"
             name="cpassword"
-            className="w-full xl:p-3 p-2 bg-[#030317] border border-white/20 rounded-md focus:outline-none focus:border-indigo-500"
+            className="w-full xl:p-3 p-2 dark:bg-[#030317] border border-white/20 rounded-md focus:outline-none focus:border-indigo-500"
           />
         </FormInput>
       </div>

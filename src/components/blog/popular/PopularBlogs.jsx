@@ -5,7 +5,7 @@ import axios from "axios";
 
 const retrievePopularPost = async ({ queryKey }) => {
   const response = await axios.get(
-    `http://localhost:3000/${queryKey[0]}/${queryKey[1]}`
+    `${import.meta.env.VITE_SERVER_BASE_URL}/${queryKey[0]}/${queryKey[1]}`
   );
   return response.data;
 };
@@ -23,7 +23,9 @@ export default function PopularBlogs() {
   if (isLoading) {
     content = <PopularCardLoader />;
   } else if (error) {
-    content = <div>something is error....</div>;
+    content = (
+      <div className="text-rose-400 h-96 flex-center">{error.message}</div>
+    );
   } else if (popularPost?.blogs?.length === 0) {
     content = <div>No Popular Post Found</div>;
   } else {
