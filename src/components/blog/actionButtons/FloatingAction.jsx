@@ -44,7 +44,7 @@ export default function FloatingAction({ post = {} }) {
                 alt="login"
                 width={45}
                 height={20}
-                className="dark:bg-slate-100 rounded"
+                className="dark:backdrop-blur bg-blue dark:shadow-md dark:bg-sky-400 dark:bg-opacity-20  rounded"
                 style={{ position: "absolute", top: "-4px" }}
               />
             </Link>
@@ -64,7 +64,7 @@ export default function FloatingAction({ post = {} }) {
                 alt="login"
                 width={46}
                 height={20}
-                className="dark:bg-slate-100 rounded bg-opacity-20"
+                className="dark:backdrop-blur bg-blue dark:shadow-md dark:bg-sky-400 dark:bg-opacity-20  rounded"
                 style={{ position: "absolute", top: "-4px", right: "70px" }}
               />
             </Link>

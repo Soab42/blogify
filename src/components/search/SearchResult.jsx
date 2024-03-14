@@ -1,4 +1,3 @@
-import React from "react";
 import SingleSearchPost from "../common/SingleSearchPost";
 import SearchCardLoader from "../loader/SearchCardLoader";
 

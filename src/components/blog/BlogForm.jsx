@@ -6,7 +6,27 @@ export default function BlogForm({
   register,
   image,
   isEdit,
+  setValue,
+  content,
+  getValues,
 }) {
+  // Function to handle adding a new line
+  const addNewLine = () => {
+    content = getValues("content");
+    setValue("content", content + "\n<br>", { shouldValidate: true });
+  };
+
+  // Function to handle adding a subtitle
+  const addSubtitle = () => {
+    content = getValues("content");
+    setValue(
+      "content",
+      content +
+        "\n<br>\n<h1 class='text-xl font-bold capitalize'>\n  //Write your title here\n</h1>\n<br>\n",
+      { shouldValidate: true }
+    );
+  };
+
   return (
     <form onSubmit={handleSubmit()} className="createBlog">
       <div className="grid place-items-center bg-slate-600/20 h-[150px] rounded-md my-4">
@@ -98,6 +118,22 @@ export default function BlogForm({
 
       <button className="bg-indigo-600 text-white px-6 py-2 md:py-3 rounded-md hover:bg-indigo-700 transition-all duration-200">
         {isEdit ? "Update" : "Create"} Blog
+      </button>
+
+      {/* Buttons */}
+      <button
+        type="button"
+        onClick={addNewLine}
+        className="dark:text-white px-6 py-2 md:py-3 rounded-md mr-4 float-right"
+      >
+        <code>Add Next Line</code>
+      </button>
+      <button
+        type="button"
+        onClick={addSubtitle}
+        className="dark:text-white px-6 py-2 md:py-3 rounded-md float-right"
+      >
+        <code>Add Subtitle</code>
       </button>
     </form>
   );

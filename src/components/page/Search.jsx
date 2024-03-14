@@ -1,3 +1,5 @@
+/* eslint-disable react/display-name */
+/* eslint-disable react/no-unescaped-entities */
 import { AnimatePresence, motion } from "framer-motion";
 import {
   forwardRef,
@@ -18,7 +20,6 @@ const Search = forwardRef((props, ref) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const { api } = useAxios();
-  console.log(show);
   const [searchResult, setSearchResult] = useState();
   useImperativeHandle(ref, () => {
     return {

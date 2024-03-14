@@ -34,6 +34,8 @@ function AddPost() {
     handleSubmit,
     formState: { errors },
     setError,
+    setValue,
+    getValues,
     watch,
   } = useForm({
     defaultValues: {
@@ -147,10 +149,12 @@ function AddPost() {
               errors={errors}
               image={formData?.thumbnail}
               isEdit={isEdit}
+              setValue={setValue}
+              getValues={getValues}
             />
           </div>
 
-          <div className="w-[50vw]">
+          <div className="w-[50vw] h-[78vh] overflow-y-scroll">
             <DemoBlog
               image={formData?.thumbnail}
               title={formData?.title}

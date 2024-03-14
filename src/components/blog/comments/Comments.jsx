@@ -5,7 +5,6 @@ import { useAuth } from "../../../hooks/useAuth";
 
 export default function Comments({ comments, postId }) {
   const { auth } = useAuth();
-  // console.log(comments);
   return (
     <section id="comments" className="relative">
       <div className="mx-auto w-full md:w-10/12 container">

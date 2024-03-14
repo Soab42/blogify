@@ -8,6 +8,7 @@ import useAxios from "../../../hooks/useAxios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { isUser } from "../../../utils.js/isUser";
 import { useAuth } from "../../../hooks/useAuth";
+import { toast } from "react-toastify";
 export default function Comment({ comment, postId }) {
   const { author, content, id } = comment;
   const { auth } = useAuth();
@@ -18,21 +19,20 @@ export default function Comment({ comment, postId }) {
       opacity: 0,
       position: "absolute",
       right: "2px",
-      translateX: "10vw", // Adjusted to translateX for horizontal translation
-      // Adjusted to translateX for horizontal translation
+      translateX: "10vw",
       transition: {
         opacity: { duration: 0.5 },
-        translateX: { duration: 0.5 }, // Adjust duration as needed
+        translateX: { duration: 0.5 },
       },
     },
     visible: {
       opacity: 1,
       position: "absolute",
       right: "2px",
-      translateX: 0, // Adjusted to translateX for horizontal translation
+      translateX: 0,
       transition: {
         opacity: { duration: 0.5 },
-        translateX: { duration: 0.5 }, // Adjust duration as needed
+        translateX: { duration: 0.5 },
       },
     },
   };
@@ -43,7 +43,7 @@ export default function Comment({ comment, postId }) {
     try {
       await mutation.mutate();
     } catch (error) {
-      console.log("error", error.message);
+      toast.error(error.message);
     }
   };
 
@@ -54,10 +54,13 @@ export default function Comment({ comment, postId }) {
     },
     onSuccess: () => {
       queryClient.invalidateQueries("blogs", postId);
+      toast.success(`Comment deleted successfully`);
+    },
+    onError: (error) => {
+      toast.error(error.message);
     },
   });
 
-  // console.log("active", active);
   return (
     <motion.div
       className="flex  items-start space-x-4 my-8 relative py-2 cursor-pointer  duration-200 hover:shadow-sm hover:shadow-blue-700/50 rounded-lg overflow-hidden"
@@ -87,7 +90,10 @@ export default function Comment({ comment, postId }) {
             whileTap={{ width: "5rem" }}
             className="flex h-12 backdrop-blur-sm bg-rose-700/30 w-16"
           >
-            <motion.button className="duration-700 flex-center w-12  backdrop-blur-sm   rounded shadow-2xl shadow-pink-700/20">
+            <motion.button
+              className="duration-700 flex-center w-12  backdrop-blur-sm   rounded shadow-2xl shadow-pink-700/20"
+              onClick={setIsActive}
+            >
               <img src={deleteIcon} alt="delete" />
             </motion.button>
           </motion.div>
