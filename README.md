@@ -10,7 +10,7 @@ ReactBlogify is a comprehensive blogging platform built with React and Node.js. 
 
 Before running ReactBlogify, ensure you have the following installed:
 
-- Node.js (version 12.x or higher recommended)
+- Node.js (version 19 or higher recommended)
 - npm (usually comes with Node.js)
 
 ### Installation
@@ -51,7 +51,7 @@ npm run dev
 yarn dev
 ```
 
-This will launch ReactBlogify on localhost:5134. You can access the web application by opening a web browser and navigating to http://localhost:5134.
+This will launch ReactBlogify on localhost:5173. You can access the web application by opening a web browser and navigating to http://localhost:5173.
 
 ## Features
 
