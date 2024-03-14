@@ -16,7 +16,7 @@ export default function ActionDot({ post = {} }) {
     navigate("/update");
   };
   return (
-    <div className="absolute right-0 top-0">
+    <div className="absolute right-1 top-2">
       <button onClick={handleActive}>
         <img src={ThreeDotSvg} alt="3dots of Action" />
       </button>
