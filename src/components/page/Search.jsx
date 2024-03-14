@@ -1,4 +1,3 @@
-/* eslint-disable react/display-name */
 import { AnimatePresence, motion } from "framer-motion";
 import {
   forwardRef,
@@ -13,7 +12,6 @@ import useDebounce from "../../hooks/useDebounce";
 import { searchChildVariants, searchVariants } from "../animated/variants";
 import SearchInput from "../search/SearchInput";
 import SearchResult from "../search/SearchResult";
-// eslint-disable-next-line react/display-name
 
 const Search = forwardRef((props, ref) => {
   const [show, setShow] = useActive(false);
