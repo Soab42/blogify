@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 export default function ImageLoader() {
   return (
-    <div className="absolute text-xs left-0 top-0 bottom-0 text-center rounded-full  w-full h-full">
+    <div className="absolute text-xs left-0 top-0 bottom-0 text-center  w-full h-full ">
       <div className="mt-12 flex-center text-xl ">
         <motion.p
           className="text-gray-200 drop-shadow-[0_2.2px_2.2px_rgba(0,0,0,0.8)]"
@@ -40,7 +40,6 @@ export default function ImageLoader() {
         animate={{
           height: ["10%", "150%", "10%"],
           width: "140%",
-          borderRadius: [100, 10, 10, 100],
         }}
         transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
       ></motion.span>

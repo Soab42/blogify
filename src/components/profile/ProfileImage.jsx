@@ -1,12 +1,19 @@
+import { motion } from "framer-motion";
 import { useRef } from "react";
 import { actions } from "../../actions";
 import EditIcon from "../../assets/icons/edit.svg";
+import useActive from "../../hooks/useActive";
 import { useAvatar } from "../../hooks/useAvatar";
 import useAxios from "../../hooks/useAxios";
 import { useProfile } from "../../hooks/useProfile";
-import useActive from "../../hooks/useActive";
 import { isUser } from "../../utils.js/isUser";
-import { motion } from "framer-motion";
+
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { useAuth } from "../../hooks/useAuth";
+import { generateColor } from "../../utils.js/generateColor";
+import ImageLoader from "../loader/ImageLoader";
+
 export default function ProfileImage({ author }) {
   const { auth } = useAuth();
   const { dispatch } = useProfile();
@@ -38,7 +45,7 @@ export default function ProfileImage({ author }) {
         });
       }
     } catch (error) {
-      toast.error(error);
+      toast.error(error.response.data.error);
       setLoading(false);
       dispatch({
         type: actions.profile.DATA_FETCH_ERROR,
@@ -67,12 +74,6 @@ export default function ProfileImage({ author }) {
     </div>
   );
 }
-
-import { useState, useEffect } from "react";
-import { generateColor } from "../../utils.js/generateColor";
-import ImageLoader from "../loader/ImageLoader";
-import { useAuth } from "../../hooks/useAuth";
-import { toast } from "react-toastify";
 
 function AuthorProfileImage({ author = {}, loading }) {
   const { avatarURL } = useAvatar(author);
