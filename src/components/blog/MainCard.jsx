@@ -38,7 +38,7 @@ export default function MainCard({ data = {} }) {
             <h3 className="dark:text-slate-300 text-xl lg:text-2xl">
               {data.title}
             </h3>
-            <p className="mb-6 text-base text-slate-500 mt-1 line-clamp-2">
+            <p className="mb-6 text-base text-slate-500 mt-1 line-clamp-3">
               {data.content}
             </p>
 
