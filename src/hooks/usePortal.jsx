@@ -1,7 +1,7 @@
 import { createPortal } from "react-dom";
 import { useEffect, useRef } from "react";
 
-const usePortal = (rootId = "portal-root") => {
+const usePortal = (rootId = "root") => {
   const mountElementRef = useRef(
     document.getElementById(rootId) || document.body
   );
@@ -10,7 +10,6 @@ const usePortal = (rootId = "portal-root") => {
   useEffect(() => {
     const mountElement = mountElementRef.current;
     const elementDiv = elementRef.current;
-
     mountElement.appendChild(elementDiv);
 
     return () => {

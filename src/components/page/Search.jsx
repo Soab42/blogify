@@ -20,7 +20,7 @@ const Search = forwardRef((props, ref) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const { api } = useAxios();
-
+  console.log(show);
   const [searchResult, setSearchResult] = useState();
   useImperativeHandle(ref, () => {
     return {
@@ -31,7 +31,7 @@ const Search = forwardRef((props, ref) => {
   });
 
   useLayoutEffect(() => {
-    const root = document.querySelector("#root > div");
+    const root = document.querySelector("#root");
 
     // Call disableScroll function when component mounts
     if (show) {
