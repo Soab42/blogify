@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 
+//set dynamic title for different page
 function useDynamicTitle(title) {
   useEffect(() => {
     if (title) {

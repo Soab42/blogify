@@ -1,8 +1,8 @@
-import AuthorImage from "../../common/AuthorImage";
-import { useState } from "react";
-import useAxios from "../../../hooks/useAxios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
 import { useAuth } from "../../../hooks/useAuth";
+import useAxios from "../../../hooks/useAxios";
+import AuthorImage from "../../common/AuthorImage";
 
 export default function CommentForm({ postId }) {
   const [content, setContent] = useState("");
@@ -33,7 +33,7 @@ export default function CommentForm({ postId }) {
       queryClient.invalidateQueries("blogs", postId);
     },
     onError: (error) => {
-      console.error(error);
+      console.error(error.message);
     },
   });
 

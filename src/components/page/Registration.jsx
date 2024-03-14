@@ -1,7 +1,7 @@
+import { motion } from "framer-motion";
 import useDynamicTitle from "../../hooks/useDynamicTitle";
 import RegistrationForm from "../auth/RegistrationForm";
 import RegistrationImage from "../auth/RegistrationImage";
-import { motion } from "framer-motion";
 export default function Registration() {
   useDynamicTitle("Registration");
   return (

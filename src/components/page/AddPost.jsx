@@ -1,23 +1,24 @@
-import BlogForm from "../blog/BlogForm";
-import DemoBlog from "../blog/DemoBlog";
-import { useForm } from "react-hook-form";
-import { pageVariants } from "../animated/variants";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { flushSync } from "react-dom";
+import { useForm } from "react-hook-form";
+import { useLocation, useNavigate } from "react-router-dom";
+import { actions } from "../../actions";
+import useActive from "../../hooks/useActive";
+import useAxios from "../../hooks/useAxios";
 import useDynamicTitle from "../../hooks/useDynamicTitle";
 import { usePost } from "../../hooks/usePost";
-import { useEffect, useState } from "react";
-import useAxios from "../../hooks/useAxios";
-import useActive from "../../hooks/useActive";
-import { actions } from "../../actions";
-import { useLocation, useNavigate } from "react-router-dom";
 import { generatePostURL } from "../../utils.js/generateURL";
-import { getLocalImageURL } from "../../utils.js/getLocalImageUrl";
 import { getBlogImage } from "../../utils.js/getBlogImage";
-import { flushSync } from "react-dom";
+import { getLocalImageURL } from "../../utils.js/getLocalImageUrl";
+import { pageVariants } from "../animated/variants";
+import BlogForm from "../blog/BlogForm";
+import DemoBlog from "../blog/DemoBlog";
 import LoadingLoader from "../loader/LoadingBar";
+import { toast } from "react-toastify";
 
 function AddPost() {
-  const [loading, setLoading] = useActive();
+  const [loading, setLoading] = useActive(false);
   const location = useLocation();
   const isEdit = location.pathname.slice(1) === "update";
   const navigate = useNavigate();
@@ -69,9 +70,7 @@ function AddPost() {
   }, [watch]);
 
   const onSubmit = async (data) => {
-    flushSync(() => {
-      setLoading(true);
-    });
+    setLoading(true);
     const formData = new FormData();
     // append image
     for (const file of data.thumbnail) {
@@ -117,7 +116,7 @@ function AddPost() {
     } catch (error) {
       console.error(error.response.data.error);
       setLoading(false);
-
+      toast.error(error.response.data.error);
       setError("root.random", {
         message: error.response.data.error,
       });
@@ -153,6 +152,8 @@ function AddPost() {
               getValues={getValues}
             />
           </div>
+
+          {/* <!-- Show Live Demo  Blog Post --> */}
 
           <div className="w-[50vw] h-[70vh] mt-2 overflow-y-scroll">
             <DemoBlog

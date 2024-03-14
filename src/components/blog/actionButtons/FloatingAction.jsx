@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import LikeButton from "./LikeButton";
-import FavButton from "./FavButton";
-import CommentsButton from "./CommentsButton";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import LoginButton from "../../../assets/icons/login.png";
 import { useAuth } from "../../../hooks/useAuth";
-import { Link } from "react-router-dom";
+import CommentsButton from "./CommentsButton";
+import FavButton from "./FavButton";
+import LikeButton from "./LikeButton";
 
 export default function FloatingAction({ post = {} }) {
   const { likes, comments, id } = post;
@@ -12,28 +12,33 @@ export default function FloatingAction({ post = {} }) {
   const [showLoginButton, setShowLoginButton] = useState(false);
   const [showLoginButton2, setShowLoginButton2] = useState(false);
 
-  const handleMouseEnter = () => {
+  // function for  showLoginButton on like and favorite button if not login
+  const handleMouseEnterLike = () => {
     if (!auth?.user?.id) {
       setShowLoginButton(true);
     }
   };
-  const handleMouseEnter2 = () => {
+
+  const handleMouseEnterFav = () => {
     if (!auth?.user?.id) {
       setShowLoginButton2(true);
     }
   };
-  const handleMouseLeave = () => {
+
+  const handleMouseLeaveLike = () => {
     setShowLoginButton(false);
   };
-  const handleMouseLeave2 = () => {
+
+  const handleMouseLeaveFav = () => {
     setShowLoginButton2(false);
   };
+
   return (
     <div className="floating-action" style={{ position: "fixed" }}>
       <ul className="floating-action-menus">
         <div
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
+          onMouseEnter={handleMouseEnterLike}
+          onMouseLeave={handleMouseLeaveLike}
           className="cursor-pointer"
         >
           <LikeButton likes={likes} postId={id} />
@@ -51,8 +56,8 @@ export default function FloatingAction({ post = {} }) {
           )}
         </div>
         <div
-          onMouseEnter={handleMouseEnter2}
-          onMouseLeave={handleMouseLeave2}
+          onMouseEnter={handleMouseEnterFav}
+          onMouseLeave={handleMouseLeaveFav}
           className="cursor-pointer"
         >
           <FavButton postId={id} />

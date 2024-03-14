@@ -1,12 +1,12 @@
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 import { generatePostURL } from "../../utils.js/generateURL";
-import ActionDot from "../common/ActionDot";
-import CardAuthor from "./CardAuthor";
 import { getBlogImage } from "../../utils.js/getBlogImage";
 import { isUser } from "../../utils.js/isUser";
-import { useAuth } from "../../hooks/useAuth";
+import ActionDot from "../common/ActionDot";
+import CardAuthor from "./CardAuthor";
 export default function MainCard({ data = {} }) {
   const { auth } = useAuth();
   const isMe = isUser(auth?.user, data?.author?.id);

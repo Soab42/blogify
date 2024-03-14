@@ -1,9 +1,9 @@
 import { useEffect, useReducer } from "react";
-import { ProfileContext } from "../context";
-import { initialState, profileReducer } from "../reducers/ProfileReducer";
-import useAxios from "../hooks/useAxios";
 import { actions } from "../actions";
+import { ProfileContext } from "../context";
 import { useAuth } from "../hooks/useAuth";
+import useAxios from "../hooks/useAxios";
+import { initialState, profileReducer } from "../reducers/ProfileReducer";
 
 const ProfileProvider = ({ children }) => {
   const [state, dispatch] = useReducer(profileReducer, initialState);

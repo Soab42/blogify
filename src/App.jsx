@@ -1,11 +1,11 @@
 import { BrowserRouter } from "react-router-dom";
 
-import AnimatedRoute from "./routes/AnimatedRoute";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import PostProvider from "./provider/PostProvider";
 import AuthProvider from "./provider/AuthProvider";
+import PostProvider from "./provider/PostProvider";
 import ProfileProvider from "./provider/ProfileProvider";
 import ThemeProvider from "./provider/ThemeProvider";
+import AnimatedRoute from "./routes/AnimatedRoute";
 
 function App() {
   const queryClient = new QueryClient();

@@ -10,8 +10,8 @@ import useDynamicTitle from "../../hooks/useDynamicTitle";
 import { getName } from "../../utils.js/getName";
 import { isUser } from "../../utils.js/isUser";
 import { pageVariants } from "../animated/variants";
-import ProfileLoader from "../loader/ProfileLoader";
 import Error from "../common/Error";
+import ProfileLoader from "../loader/ProfileLoader";
 
 const retrieveProfile = async ({ queryKey }) => {
   const response = await axios.get(
@@ -48,7 +48,6 @@ export default function Profile() {
           {isME ? "Your" : getName(profile)} Blogs
         </h4>
         <div className="my-6 space-y-4">
-          {/* <!-- Blog Card Start --> */}
           {profile?.blogs.map((data) => (
             <MainCard data={data} key={data.id} />
           ))}

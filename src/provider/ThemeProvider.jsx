@@ -18,12 +18,10 @@ const ThemeProvider = ({ children }) => {
 
   useEffect(() => {
     const html = document.documentElement; // Select the HTML element
-    // console.log(html);
 
     if (theme === "dark") {
       localStorage.setItem("theme", theme);
       html.classList.add("dark"); // Add the "dark" class
-      // console.log("dark");
     } else {
       localStorage.setItem("theme", "dark");
       html.classList.remove("dark"); // Remove the "dark" class

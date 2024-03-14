@@ -20,6 +20,7 @@ export default function LoginForm() {
   } = useForm();
 
   const onSubmit = async (data) => {
+    // validate email format
     if (!validateEmail(data?.email)) {
       setError("email", {
         message: "Email is not valid",
@@ -53,7 +54,7 @@ export default function LoginForm() {
     <motion.form
       className={`w-3/4`}
       onSubmit={handleSubmit(onSubmit)}
-      initial={{ opacity: 0.5, x: -20 }} // Initial state (before entering viewport)
+      initial={{ opacity: 0.5, x: -20 }}
       animate={{
         opacity: 1,
         x: [-200, 0],
@@ -104,7 +105,7 @@ export default function LoginForm() {
         </button>
       </div>
       <p className="text-center">
-        Don't have an account?{" "}
+        Don&#39;t have an account?{" "}
         <Link to="/register" className="text-indigo-600 hover:underline">
           Register
         </Link>

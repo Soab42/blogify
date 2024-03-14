@@ -1,17 +1,17 @@
 // import LogoutSvg from "../../assets/icons/logout.svg";
 import LogoutSvg from "../../../assets/icons/logout2.svg";
 // import UserSvg from "../../assets/icons/user.svg";
+import { AnimatePresence, motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { actions } from "../../../actions";
 import UserSvg from "../../../assets/icons/user-heart.svg";
 import useActive from "../../../hooks/useActive";
-import AuthorImage from "../AuthorImage";
-import { getName, getNameURL } from "../../../utils.js/getName";
-import { Link } from "react-router-dom";
 import { useAuth } from "../../../hooks/useAuth";
-import useSessionCookie from "../../../hooks/useSessionCookie";
 import { useProfile } from "../../../hooks/useProfile";
-import { actions } from "../../../actions";
-import { AnimatePresence, motion } from "framer-motion";
+import useSessionCookie from "../../../hooks/useSessionCookie";
+import { getName, getNameURL } from "../../../utils.js/getName";
 import { actionModalVariants } from "../../animated/variants";
+import AuthorImage from "../AuthorImage";
 export default function ProfileNavigation({ user }) {
   const [active, handleActive] = useActive();
   const { removeCookie } = useSessionCookie("auth");

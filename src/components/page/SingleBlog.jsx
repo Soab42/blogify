@@ -5,8 +5,8 @@ import useDynamicTitle from "../../hooks/useDynamicTitle";
 import BlogDetails from "../blog/BlogDetails";
 import FloatingAction from "../blog/actionButtons/FloatingAction";
 import Comments from "../blog/comments/Comments";
-import BlogPostLoader from "../loader/BlogPostLoader";
 import Error from "../common/Error";
+import BlogPostLoader from "../loader/BlogPostLoader";
 
 const retrievePost = async ({ queryKey }) => {
   const response = await axios.get(

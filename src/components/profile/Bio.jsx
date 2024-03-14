@@ -1,14 +1,14 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import { actions } from "../../actions";
 import EditIcon from "../../assets/icons/edit.svg";
 import TickIcon from "../../assets/icons/ok.svg";
 import useActive from "../../hooks/useActive";
+import { useAuth } from "../../hooks/useAuth";
 import useAxios from "../../hooks/useAxios";
 import { useProfile } from "../../hooks/useProfile";
 import { isUser } from "../../utils.js/isUser";
-import { toast } from "react-toastify";
-import { useAuth } from "../../hooks/useAuth";
 
 export default function Bio({ info = {} }) {
   const queryClient = useQueryClient();

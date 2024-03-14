@@ -30,12 +30,15 @@ export default function FavButton({ postId }) {
       <button className="relative">
         {isFavourite ? (
           <div>
+            {/* main fav Button */}
             <motion.img
               src={FavIconFilled}
               alt="Favourite"
               onClick={handleFavorite}
               whileTap={{ scale: [0.9, 2, 1] }}
             />
+
+            {/* animated icon when get first active */}
             <motion.img
               transition={{ duration: 2 }}
               className="absolute top-0"

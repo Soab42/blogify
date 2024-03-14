@@ -11,7 +11,7 @@ export default function BlogForm({
 }) {
   // Function to handle adding a new line
   const addNewLine = () => {
-    content = getValues("content");
+    const content = getValues("content");
     setValue("content", content + "\n<br>", { shouldValidate: true });
   };
 
@@ -28,7 +28,7 @@ export default function BlogForm({
 
   return (
     <form onSubmit={handleSubmit()} className="createBlog">
-      <p className="opacity-10">
+      <p className="opacity-10 text-black/10 dark:text-white">
         For better performance select thumbnail at the end
       </p>
 

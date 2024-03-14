@@ -1,5 +1,5 @@
-import React from "react";
 import { motion } from "framer-motion";
+import React from "react";
 import elephent from "../../assets/icons/elephent.png";
 import Tree from "../../assets/icons/tree.png";
 export default function PageNotFound() {

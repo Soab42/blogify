@@ -1,7 +1,7 @@
-import Comment from "./Comment";
-import CommentForm from "./CommentForm";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../../hooks/useAuth";
+import Comment from "./Comment";
+import CommentForm from "./CommentForm";
 
 export default function Comments({ comments, postId }) {
   const { auth } = useAuth();
@@ -13,12 +13,14 @@ export default function Comments({ comments, postId }) {
           {comments && comments.length > 0 && <span>({comments.length})</span>}
         </h2>
 
+        {/* show comment form if user logged in */}
         {auth?.user && <CommentForm postId={postId} />}
 
         {comments?.map((comment) => (
           <Comment key={comment.id} comment={comment} postId={postId} />
         ))}
 
+        {/* show message if user not logged in */}
         {!auth?.user && (
           <p className="p-4 bg-slate-500/20 text-center rounded-lg">
             To add a comment, please{" "}

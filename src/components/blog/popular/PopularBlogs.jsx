@@ -1,7 +1,7 @@
-import PopularCard from "./PopularCard";
-import PopularCardLoader from "../../loader/PopularCardLoader";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import PopularCardLoader from "../../loader/PopularCardLoader";
+import PopularCard from "./PopularCard";
 
 const retrievePopularPost = async ({ queryKey }) => {
   const response = await axios.get(

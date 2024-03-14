@@ -5,7 +5,7 @@ export default function RegistrationImage() {
   return (
     <motion.div
       className="xl:min-w-[46rem] w-3/6"
-      initial={{ opacity: 0.5, x: -20 }} // Initial state (before entering viewport)
+      initial={{ opacity: 0.5, x: -20 }}
       animate={{
         opacity: 1,
         x: [-200, 0],

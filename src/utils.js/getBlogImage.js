@@ -1,3 +1,5 @@
+// function for generating url for blog thumbnail from a post data
+
 export const getBlogImage = (link) => {
   let thumbnailLink;
   if (typeof link === "string") {

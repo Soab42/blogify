@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { actions } from "../../actions";
+import { useAuth } from "../../hooks/useAuth";
 import useAxios from "../../hooks/useAxios";
 import useDynamicTitle from "../../hooks/useDynamicTitle";
 import useIntersectionObserver from "../../hooks/useIntersectionObserver";
@@ -9,10 +10,9 @@ import { pageVariants } from "../animated/variants";
 import MainCard from "../blog/MainCard";
 import FavouriteBlogs from "../blog/favourite/FavouriteBlogs";
 import PopularBlogs from "../blog/popular/PopularBlogs";
-import MainCardLoader, { CardLoader } from "../loader/MainCardLoader";
 import Error from "../common/Error";
 import NoDataFound from "../common/NoDataFound";
-import { useAuth } from "../../hooks/useAuth";
+import MainCardLoader, { CardLoader } from "../loader/MainCardLoader";
 export default function Home() {
   const [ref, isVisible] = useIntersectionObserver({
     root: null,

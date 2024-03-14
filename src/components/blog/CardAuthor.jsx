@@ -1,8 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import AuthorImage from "../common/AuthorImage";
-import { getName, getNameURL } from "../../utils.js/getName";
 import getDateFormat from "../../utils.js/getDateFormat";
+import { getName, getNameURL } from "../../utils.js/getName";
+import AuthorImage from "../common/AuthorImage";
 
 export default function CardAuthor({ author, likes, createdAt }) {
   const navigate = useNavigate();

@@ -1,7 +1,7 @@
-import FavouriteCard from "./FavouriteCard";
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../../hooks/useAxios";
 import FavCardLoader from "../../loader/FavCardLoader";
+import FavouriteCard from "./FavouriteCard";
 
 export default function FavouriteBlogs() {
   const { api } = useAxios();

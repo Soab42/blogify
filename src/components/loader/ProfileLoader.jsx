@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import MainCardLoader from "./MainCardLoader";
 import Person from "../../assets/icons/user.svg";
+import MainCardLoader from "./MainCardLoader";
 export default function ProfileLoader() {
   return (
     <motion.main

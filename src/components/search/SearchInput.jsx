@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
 export default function SearchInput({ onChange }) {
   const [index, setIndex] = useState(0);

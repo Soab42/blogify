@@ -1,41 +1,21 @@
-import { Link } from "react-router-dom";
-import { getName, getNameURL } from "../../../utils.js/getName";
-import AuthorImage from "../../common/AuthorImage";
-import { AnimatePresence, motion } from "framer-motion";
-import useActive from "../../../hooks/useActive";
-import deleteIcon from "../../../assets/icons/delete.svg";
-import useAxios from "../../../hooks/useAxios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { isUser } from "../../../utils.js/isUser";
-import { useAuth } from "../../../hooks/useAuth";
+import { AnimatePresence, motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import deleteIcon from "../../../assets/icons/delete.svg";
+import useActive from "../../../hooks/useActive";
+import { useAuth } from "../../../hooks/useAuth";
+import useAxios from "../../../hooks/useAxios";
+import { getName, getNameURL } from "../../../utils.js/getName";
+import { isUser } from "../../../utils.js/isUser";
+import { buttonVariant } from "../../animated/variants";
+import AuthorImage from "../../common/AuthorImage";
 export default function Comment({ comment, postId }) {
   const { author, content, id } = comment;
   const { auth } = useAuth();
   const isMe = isUser(auth?.user, author?.id);
   const [active, setIsActive] = useActive();
-  const buttonVariant = {
-    hidden: {
-      opacity: 0,
-      position: "absolute",
-      right: "2px",
-      translateX: "10vw",
-      transition: {
-        opacity: { duration: 0.5 },
-        translateX: { duration: 0.5 },
-      },
-    },
-    visible: {
-      opacity: 1,
-      position: "absolute",
-      right: "2px",
-      translateX: 0,
-      transition: {
-        opacity: { duration: 0.5 },
-        translateX: { duration: 0.5 },
-      },
-    },
-  };
+
   const { api } = useAxios();
   const queryClient = useQueryClient();
 
@@ -55,9 +35,6 @@ export default function Comment({ comment, postId }) {
     onSuccess: () => {
       queryClient.invalidateQueries("blogs", postId);
       toast.success(`Comment deleted successfully`);
-    },
-    onError: (error) => {
-      toast.error(error.message);
     },
   });
 

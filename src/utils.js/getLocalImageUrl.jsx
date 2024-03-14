@@ -1,3 +1,5 @@
+// function for generating url form local machine
+
 export const getLocalImageURL = (files, callback) => {
   const file = files[0];
   const reader = new FileReader();

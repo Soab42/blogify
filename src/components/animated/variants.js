@@ -1,7 +1,8 @@
+// variants collection for framer-motion animation
+
 export const pageVariants = {
   initial: {
     opacity: 0,
-    // x: "-100%",
   },
   animate: {
     opacity: 1,
@@ -14,7 +15,6 @@ export const pageVariants = {
   },
   exit: {
     opacity: 0,
-    // x: "100%",
     transition: {
       duration: 0.2,
     },
@@ -84,6 +84,29 @@ export const searchChildVariants = {
     x: "100vh",
     transition: {
       duration: 0.2,
+    },
+  },
+};
+
+export const buttonVariant = {
+  hidden: {
+    opacity: 0,
+    position: "absolute",
+    right: "2px",
+    translateX: "10vw",
+    transition: {
+      opacity: { duration: 0.5 },
+      translateX: { duration: 0.5 },
+    },
+  },
+  visible: {
+    opacity: 1,
+    position: "absolute",
+    right: "2px",
+    translateX: 0,
+    transition: {
+      opacity: { duration: 0.5 },
+      translateX: { duration: 0.5 },
     },
   },
 };

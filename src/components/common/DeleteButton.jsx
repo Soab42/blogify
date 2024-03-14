@@ -1,10 +1,10 @@
+import { useQueryClient } from "@tanstack/react-query";
+import { toast } from "react-toastify";
+import { actions } from "../../actions/index.js";
 import DeleteSvg from "../../assets/icons/delete.svg";
 import useAxios from "../../hooks/useAxios.js";
 import { usePost } from "../../hooks/usePost.js";
-import { actions } from "../../actions/index.js";
-import { useQueryClient } from "@tanstack/react-query";
 import { useProfile } from "../../hooks/useProfile";
-import { toast } from "react-toastify";
 export default function DeleteButton({ postId, onclick }) {
   const queryClient = useQueryClient();
   const { dispatch } = usePost();

@@ -1,8 +1,8 @@
-import LoginForm from "../auth/LoginForm";
-import LoginImage from "../auth/LoginImage";
 import { motion } from "framer-motion";
 import useDynamicTitle from "../../hooks/useDynamicTitle";
 import { pageVariants } from "../animated/variants";
+import LoginForm from "../auth/LoginForm";
+import LoginImage from "../auth/LoginImage";
 <title>Login | Learn with Sumit</title>;
 
 export default function Login() {
@@ -17,7 +17,6 @@ export default function Login() {
     >
       {/* <!-- Login Form into a box center of the page --> */}
 
-      {/* <RotatingSquire /> */}
       <LoginImage />
 
       <div className="mx-auto my-0 h-full xl:w-1/2  bg-[#030317]/10 backdrop-blur-md p-8 rounded-md  z-10  flex-center-col">

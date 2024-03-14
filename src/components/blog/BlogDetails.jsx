@@ -1,8 +1,7 @@
 import React from "react";
-import Author from "./CardAuthor";
 import BlogAuthor from "./BlogAuthor";
-import BlogTags from "./BlogTags";
 import BlogImage from "./BlogImage";
+import BlogTags from "./BlogTags";
 
 export default function BlogDetails({ blog = {} }) {
   const { author, tags, thumbnail, likes, content, createdAt } = blog;

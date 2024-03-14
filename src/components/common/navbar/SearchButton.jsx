@@ -1,8 +1,8 @@
 import { AnimatePresence } from "framer-motion";
+import { useRef } from "react";
 import SearchIcon from "../../../assets/icons/search.svg";
 import usePortal from "../../../hooks/usePortal";
 import Search from "../../page/Search";
-import { useRef } from "react";
 export default function SearchButton() {
   const modalRef = useRef();
   const PortalComponent = usePortal();

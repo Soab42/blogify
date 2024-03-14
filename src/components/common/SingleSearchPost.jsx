@@ -1,7 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { useHighlightMatches } from "../../hooks/useHighlightMatches";
 import { generatePostURL } from "../../utils.js/generateURL";
-import { Link } from "react-router-dom";
 import { getBlogImage } from "../../utils.js/getBlogImage";
 export default function SingleSearchPost({ post = {}, searchValue }) {
   const match = useHighlightMatches(searchValue);

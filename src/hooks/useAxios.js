@@ -1,6 +1,6 @@
 /* eslint-disable no-useless-catch */
-import { useEffect } from "react";
 import axios from "axios";
+import { useEffect } from "react";
 import { api } from "../axios";
 import { useAuth } from "./useAuth";
 import useSessionCookie from "./useSessionCookie";

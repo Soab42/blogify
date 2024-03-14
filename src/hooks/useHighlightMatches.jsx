@@ -1,3 +1,4 @@
+// headlight search results keyword that matches
 export function useHighlightMatches(searchValue) {
   const highlightMatches = (text) => {
     if (!searchValue) return text; // If there's no query, return the original text

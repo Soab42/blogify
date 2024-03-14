@@ -1,3 +1,4 @@
+// function for generating formatted date
 export default function getDateFormat(rawDate = null) {
   const date = new Date(rawDate);
   const options = {

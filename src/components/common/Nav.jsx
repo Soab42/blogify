@@ -1,9 +1,9 @@
-import LwsLogo from "../../assets/logo.svg";
 import { Link } from "react-router-dom";
+import LwsLogo from "../../assets/logo.svg";
 import { useAuth } from "../../hooks/useAuth";
 import ProfileNavigation from "./navbar/ProfileNavigation";
-import ThemeNevigation from "./navbar/ThemeNevigation";
 import SearchButton from "./navbar/SearchButton";
+import ThemeNevigation from "./navbar/ThemeNevigation";
 
 export default function Nav() {
   const { auth } = useAuth();

@@ -1,5 +1,6 @@
 import { useProfile } from "./useProfile";
 
+// generate profile avatars for users
 export const useAvatar = (author) => {
   const { user } = useProfile();
 

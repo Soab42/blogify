@@ -1,6 +1,4 @@
 function useSessionCookie() {
-  // Get the initial value from session cookie if available, otherwise use initialValue
-
   // Helper function to get cookie value
   function getCookie(name) {
     const value = `; ${document.cookie}`;

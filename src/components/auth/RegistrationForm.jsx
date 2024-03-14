@@ -1,7 +1,6 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
 import FormInput from "../common/FormInput";
 
 import axios from "axios";
@@ -36,7 +35,7 @@ export default function RegistrationForm() {
   return (
     <motion.form
       onSubmit={handleSubmit(onSubmit)}
-      initial={{ opacity: 0.5, x: -20 }} // Initial state (before entering viewport)
+      initial={{ opacity: 0.5, x: -20 }}
       animate={{
         opacity: 1,
         x: [200, 0],
@@ -116,6 +115,7 @@ export default function RegistrationForm() {
           />
         </FormInput>
       </div>
+
       <div className="xl:mb-6 mb-3 capitalize">
         {errors.root?.random?.message && (
           <p className="text-rose-600 mb-2 text-center w-full">

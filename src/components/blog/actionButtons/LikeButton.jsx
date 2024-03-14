@@ -1,12 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { motion } from "framer-motion";
+import { toast } from "react-toastify";
 import LikeIconFilled from "../../../assets/icons/like-filled.svg";
 import LikeIcon from "../../../assets/icons/like.svg";
 import useAxios from "../../../hooks/useAxios";
 import { useProfile } from "../../../hooks/useProfile";
 import { isPresentId } from "../../../utils.js/isPresentId";
 import AnimatedValueSpan from "../../animated/AnimatedValueSpan";
-import { toast } from "react-toastify";
 
 export default function LikeButton({ likes, postId }) {
   const queryClient = useQueryClient();
@@ -14,6 +14,7 @@ export default function LikeButton({ likes, postId }) {
 
   const { api } = useAxios();
 
+  //get that is is present on posts likes array
   let isLiked = isPresentId(likes, user?.id);
 
   const handleLike = async () => {
@@ -25,6 +26,7 @@ export default function LikeButton({ likes, postId }) {
       }
     }
   };
+
   const mutation = useMutation({
     gcTime: 2000,
     mutationFn: (toggle) => {
@@ -32,6 +34,9 @@ export default function LikeButton({ likes, postId }) {
     },
     onSuccess: () => {
       queryClient.invalidateQueries("blogs", postId);
+    },
+    onError: (error) => {
+      toast.error(error.message);
     },
   });
 
@@ -45,6 +50,7 @@ export default function LikeButton({ likes, postId }) {
         )}
       </motion.button>
       <div className="relative">
+        {/* for showing value with animation */}
         <AnimatedValueSpan initialValue={likes?.length} />
       </div>
     </li>
