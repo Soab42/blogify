@@ -4,7 +4,7 @@ export default function DemoBlog({ image, title, tags, content }) {
   return (
     <section className="">
       <div className="text-center py-8">
-        <h1 className="font-bold text-3xl md:text-5xl">{title}</h1>
+        <h1 className="font-bold text-3xl md:text-5xl capitalize">{title}</h1>
 
         {image && (
           <img

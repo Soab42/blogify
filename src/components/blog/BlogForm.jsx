@@ -7,7 +7,6 @@ export default function BlogForm({
   image,
   isEdit,
   setValue,
-  content,
   getValues,
 }) {
   // Function to handle adding a new line
@@ -18,17 +17,21 @@ export default function BlogForm({
 
   // Function to handle adding a subtitle
   const addSubtitle = () => {
-    content = getValues("content");
+    const content = getValues("content");
     setValue(
       "content",
       content +
-        "\n<br>\n<h1 class='text-xl font-bold capitalize'>\n  //Write your title here\n</h1>\n<br>\n",
+        "\n<br><br>\n<h1 class='text-2xl font-bold capitalize'>\n  //Write your title here\n</h1>\n",
       { shouldValidate: true }
     );
   };
 
   return (
     <form onSubmit={handleSubmit()} className="createBlog">
+      <p className="opacity-10">
+        For better performance select thumbnail at the end
+      </p>
+
       <div className="grid place-items-center bg-slate-600/20 h-[150px] rounded-md my-4">
         <label
           htmlFor="file-upload"

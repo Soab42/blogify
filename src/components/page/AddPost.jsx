@@ -154,7 +154,7 @@ function AddPost() {
             />
           </div>
 
-          <div className="w-[50vw] h-[78vh] overflow-y-scroll">
+          <div className="w-[50vw] h-[70vh] mt-2 overflow-y-scroll">
             <DemoBlog
               image={formData?.thumbnail}
               title={formData?.title}
