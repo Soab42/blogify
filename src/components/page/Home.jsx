@@ -49,7 +49,7 @@ export default function Home() {
   }, [isVisible, state.hasMore]);
 
   useDynamicTitle(state?.loading ? "loading" : undefined);
-
+  console.log(state.posts);
   let content;
   if (state?.loading) {
     content = <MainCardLoader />;

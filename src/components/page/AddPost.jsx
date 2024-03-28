@@ -102,7 +102,7 @@ function AddPost() {
           if (res.status === 201) {
             dispatch({
               type: actions.post.DATA_CREATED,
-              data: res.data,
+              data: res.data.blog,
             });
             const url = generatePostURL(res.data.blog);
             navigate(url);

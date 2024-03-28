@@ -16,19 +16,18 @@ export default function MainCard({ data = {} }) {
     margin: "0px 100px -50px 0px",
   });
   return (
-    <div className="relative">
+    <div
+      className="relative"
+      key={data.id}
+      style={{
+        background: isInView ? "" : "white",
+        transform: !isInView ? "translateY(30px)" : "translateX(0px)",
+        opacity: isInView ? 1 : 0,
+        transition: "all 1s cubic-bezier(0.25, 0.1, 0.25, 1) .1s",
+      }}
+    >
       <Link to={generatePostURL(data)}>
-        <div
-          className="blog-card"
-          ref={ref}
-          key={data.id}
-          style={{
-            background: isInView ? "" : "white",
-            transform: !isInView ? "translateY(30px)" : "translateX(0px)",
-            opacity: isInView ? 1 : 0,
-            transition: "all 1s cubic-bezier(0.25, 0.1, 0.25, 1) .1s",
-          }}
-        >
+        <div className="blog-card" ref={ref}>
           <img
             className="blog-thumb"
             src={getBlogImage(data.thumbnail)}
